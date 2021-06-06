@@ -1,0 +1,16 @@
+#intro {
+    background-image: url(https://mdbootstrap.com/img/new/fluid/city/008.jpg);
+    height: 110vh;
+}
+
+.navbar .nav-link {
+    color: #fff !important;
+}
+
+
+
+@media (min-width: 992px) {
+    #intro {
+        margin-top: -58.59px;
+    }
+}
