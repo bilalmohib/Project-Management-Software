@@ -1,0 +1,11 @@
+.fontWeight-light
+{
+    font-weight: lighter;
+}
+.btn-continue
+{
+    border-radius: 5px;
+    font-size: 14px;
+    word-spacing: 3px !important;
+    font-weight: lighter !important;
+}

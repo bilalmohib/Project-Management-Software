@@ -3,6 +3,12 @@ import '../styles/globals.css'
 
 import "../ContainerCss/Home.css";
 import "../ContainerCss/Admin.css";
+import "../ContainerCss/Staff.css";
+
+import "../ComponentCss/Navbar.css";
+
+import "react-date-picker/dist/DatePicker.css"
+import "react-calendar/dist/Calendar.css"
 
 import { Provider } from 'react-redux'
 import store from "../store";
