@@ -16,7 +16,7 @@ import store from "../store";
 function MyApp({ Component, pageProps }) {
   return <>
     <Head>
-      <meta charset="utf-8" />
+      <meta charSet="utf-8" />
       <meta name="description" content="Team Overc’s is a trusted name in the house construction and consultancy industry. With the extensive experience in the field since 2011, Team Overc’s has made a name for itself providing high quality Construction and Building services to its clientele." />
       <meta name="keywords" content="management system,teams management,task management,tasks assignement,staff manager" />
       <meta name="author" content="Muhammad-Bilal-7896" />

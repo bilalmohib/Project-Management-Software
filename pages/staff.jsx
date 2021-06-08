@@ -75,7 +75,7 @@ const Staff = (props) => {
         let taskobj = {
             taskName: task,
             taskAssignee: assignee,
-            taskDue: taskDue.toDateString(),
+            taskDue: '4/5/7',
             taskPriority: taskPriority,
             taskSection: taskSection,
         }
@@ -354,7 +354,7 @@ const Staff = (props) => {
                                         <div className="input-group input-group-md category_select">
                                             <span className="input-group-addon glyphicon glyphicon-search" id="sizing-addon2"></span>
                                             <select style={{ fontSize: "15px", width: "200px" }} value={taskSection}
-                                                onChange={(e) => setTaskSection(e)} className="form-control">
+                                                onChange={(e) => setTaskSection(e.target.value)} className="form-control">
                                                 {allStageArray.map((v, i) => {
                                                     return <option value={v} key={i}>
                                                         {v}
@@ -412,28 +412,20 @@ const Staff = (props) => {
                                         </tr>
                                         {(allTaskArray.length == 0) ? (
                                             <tr>
-                                                {/* <tr>
-                                                    <th scope="row"><i className="far fa-check-circle fa-lg"></i>&nbsp;&nbsp;</th>
-                                                    <td>&nbsp;&nbsp;</td>
-                                                    <td>&nbsp;&nbsp;</td>
-                                                    <td>&nbsp;&nbsp;</td>
-                                                    <td>&nbsp;&nbsp;</td>
-                                                </tr> */}
-                                                {/* <tr> */}
                                                 <th scope="row"><i className="far fa-check-circle fa-lg"></i>&nbsp;&nbsp;</th>
                                                 <td>&nbsp;&nbsp;</td>
                                                 <td>&nbsp;&nbsp;</td>
                                                 <td>&nbsp;&nbsp;</td>
                                                 <td>&nbsp;&nbsp;</td>
-                                                {/* </tr> */}
                                             </tr>
                                         ) : (
                                             allTaskArray.map((v, i) => {
                                                 return <tr key={i}>
-                                                    {(v.taskSection == s) ? (
-                                                        <div>
-                                                            <th scope="row"><i className="far fa-check-circle fa-lg"></i>&nbsp;&nbsp;{v.taskName}</th>
-                                                            {(v.taskAssignee.length == "") ? (
+                                                     {(v.taskSection == s) ? (
+                                                        <> 
+                                                       
+                                                             <th scope="row"><i className="far fa-check-circle fa-lg"></i>&nbsp;&nbsp;{v.taskName}</th>
+                                                            {(v.taskAssignee == "") ? (
                                                                 <td><i className="fas fa-user-circle fa-2x text-primary"></i></td>
                                                             ) : (
                                                                 <td>{v.taskAssignee}</td>
@@ -441,11 +433,11 @@ const Staff = (props) => {
 
                                                             <td>{v.taskDue}</td>
                                                             <td><button type="button" className="btn btn-info btn-rounded">{v.taskPriority}</button></td>
-                                                            <td><button type="button" className="btn btn-info btn-rounded">{v.taskSection}</button></td>
-                                                        </div>
+                                                            <td><button type="button" className="btn btn-info btn-rounded">{v.taskSection}</button></td> 
+                                                         </>
                                                     ) : (
                                                         <></>
-                                                    )}
+                                                    )} 
                                                 </tr>
                                             })
                                         )}
