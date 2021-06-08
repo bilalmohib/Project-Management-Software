@@ -75,7 +75,7 @@ const Staff = (props) => {
         let taskobj = {
             taskName: task,
             taskAssignee: assignee,
-            taskDue: '4/5/7',
+            taskDue: taskDue.toLocaleDateString(),
             taskPriority: taskPriority,
             taskSection: taskSection,
         }
@@ -421,10 +421,10 @@ const Staff = (props) => {
                                         ) : (
                                             allTaskArray.map((v, i) => {
                                                 return <tr key={i}>
-                                                     {(v.taskSection == s) ? (
-                                                        <> 
-                                                       
-                                                             <th scope="row"><i className="far fa-check-circle fa-lg"></i>&nbsp;&nbsp;{v.taskName}</th>
+                                                    {(v.taskSection == s) ? (
+                                                        <>
+
+                                                            <th scope="row"><i className="far fa-check-circle fa-lg"></i>&nbsp;&nbsp;{v.taskName}</th>
                                                             {(v.taskAssignee == "") ? (
                                                                 <td><i className="fas fa-user-circle fa-2x text-primary"></i></td>
                                                             ) : (
@@ -432,12 +432,20 @@ const Staff = (props) => {
                                                             )}
 
                                                             <td>{v.taskDue}</td>
-                                                            <td><button type="button" className="btn btn-info btn-rounded">{v.taskPriority}</button></td>
-                                                            <td><button type="button" className="btn btn-info btn-rounded">{v.taskSection}</button></td> 
-                                                         </>
+                                                            {(v.taskPriority == "High") ? (
+                                                                <td><button type="button" className="btn btn-danger btn-rounded">{v.taskPriority}</button></td>
+                                                            ) : (v.taskPriority == "Medium") ? (
+                                                                <td><button type="button" className="btn btn-warning btn-rounded">{v.taskPriority}</button></td>
+                                                            ) : (v.taskPriority == "Low") ? (
+                                                                <td><button type="button" className="btn btn-info btn-rounded">{v.taskPriority}</button></td>
+                                                            ) : (
+                                                                <td></td>
+                                                            )}
+                                                            <td><h5>{v.taskSection}</h5></td>
+                                                        </>
                                                     ) : (
                                                         <></>
-                                                    )} 
+                                                    )}
                                                 </tr>
                                             })
                                         )}

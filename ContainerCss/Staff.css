@@ -9,3 +9,7 @@
     word-spacing: 3px !important;
     font-weight: lighter !important;
 }
+.btn-rounded
+{
+    border-radius: 20px !important;
+}
