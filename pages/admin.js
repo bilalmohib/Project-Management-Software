@@ -52,7 +52,5 @@ const Admin=(props)=>{
 const mapStateToProps = (state) => ({
   user_data: state.auth.USER
 })
-// const mapDispatchToProp = (dispatch) => ({
-//     set_data: (data) => dispatch(set_data(data))
-//   })
+
 export default connect(mapStateToProps, null)(Admin);
