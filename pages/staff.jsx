@@ -3,6 +3,8 @@ import { connect } from "react-redux";
 import firebase from '../firebase/index';
 import 'firebase/firestore'
 
+import xml2js from "xml2js"
+
 import Navbar from "../Components/Navbar";
 
 import DatePicker from 'react-date-picker/dist/entry.nostyle';
@@ -33,6 +35,18 @@ const Staff = (props) => {
 
 
     useEffect(() => {
+        // let parser = new xml2js.Parser();
+        // parser.parseString(
+        //    `<email>
+        //    <to>Test</to>
+        //    <from>Test1</from>
+        //    <heading>Test email</heading>
+        //    <body>Email regards to xml data parsing in React</body>
+        //    </email>`,
+        //    function(err, result) {
+        //         console.log(result);
+        //    });
+
         console.log("All the data in the staff component is: ", allTaskArray)
 
         const db = firebase.firestore();
@@ -319,7 +333,7 @@ const Staff = (props) => {
                                             <span className="input-group-addon glyphicon glyphicon-search" id="sizing-addon2"></span>
                                             <select style={{ fontSize: "15px", width: "200px" }} value={assignee}
                                                 onChange={(e) => setTaskAssignedTo(e)} className="form-control">
-                                                {teamMatesArray.map((v, i) => {
+                                                {["--default--", ...teamMatesArray].map((v, i) => {
                                                     return <option value={v} key={i}>
                                                         {v}
                                                     </option>
@@ -343,6 +357,7 @@ const Staff = (props) => {
                                             <span className="input-group-addon glyphicon glyphicon-search" id="sizing-addon2"></span>
                                             <select style={{ fontSize: "15px", width: "200px" }} value={taskPriority}
                                                 onChange={(e) => setTaskPriority(e.target.value)} className="form-control">
+                                                <option disabled={true} value="default">--default--</option>
                                                 <option value="High">High</option>
                                                 <option value="Medium">Medium</option>
                                                 <option value="Low">Low</option>
@@ -355,7 +370,7 @@ const Staff = (props) => {
                                             <span className="input-group-addon glyphicon glyphicon-search" id="sizing-addon2"></span>
                                             <select style={{ fontSize: "15px", width: "200px" }} value={taskSection}
                                                 onChange={(e) => setTaskSection(e.target.value)} className="form-control">
-                                                {allStageArray.map((v, i) => {
+                                                {["--default--",...allStageArray].map((v, i) => {
                                                     return <option value={v} key={i}>
                                                         {v}
                                                     </option>
@@ -364,7 +379,18 @@ const Staff = (props) => {
                                         </div>
                                         <br />
 
-                                        <button className="btn btn-info" onClick={addtasks}>Add task</button>
+                                        {(task == "" || assignee == "" || taskDue == currentDate || taskPriority == "" || taskSection == "") ? (
+                                            <>
+                                                <span className="text-danger">Please enter all the fields with <span className="text-danger">*</span> to continue</span><br />
+                                                <button className="btn btn-info" disabled={true} onClick={addtasks}>Add task</button>
+                                            </>
+
+                                        ) : (
+                                            <>
+                                                <button className="btn btn-info" onClick={addtasks}>Add task</button>
+                                            </>
+                                        )}
+
                                         <br />
                                         <hr />
                                         <button className="btn btn-secondary btn-continue" onClick={() => setStage(stage + 1)}>Take me to my project</button>

@@ -11,9 +11,7 @@ import { connect } from "react-redux"
 import { set_data } from '../store/action/index';
 
 
-
 class Home extends React.Component {
-
   constructor(props) {
     super(props)
     this.state = {

@@ -17,6 +17,7 @@
     "react-firebaseui": "^5.0.2",
     "react-redux": "^7.2.4",
     "redux": "^4.1.0",
-    "redux-thunk": "^2.3.0"
+    "redux-thunk": "^2.3.0",
+    "xml2js": "^0.4.23"
   }
 }
