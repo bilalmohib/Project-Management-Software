@@ -103,7 +103,6 @@ class Home extends React.Component {
   }
 
   componentDidUpdate = () => {
-    
     console.log(this.state.isSignedIn)
   }
 
@@ -145,7 +144,7 @@ class Home extends React.Component {
       this.props.set_data(this.state.user_data);
       const {pathname} = Router
       if(pathname == '/' ){
-        Router.push('/staff')
+        Router.push('/NewProject')
      }
     }
     return (
