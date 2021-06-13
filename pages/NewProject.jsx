@@ -1,7 +1,10 @@
+//https://stackoverflow.com/questions/58173809/next-js-redirect-from-to-another-page/58182678?sfb=2#58182678
 import { useState, useEffect } from "react";
 import { connect } from "react-redux";
 import firebase from '../firebase/index';
+import Router from 'next/router'
 import 'firebase/firestore';
+
 
 import Navbar from "../Components/Navbar";
 
@@ -33,6 +36,12 @@ const NewProject = (props) => {
 
 
     useEffect(() => {
+
+        const {pathname} = Router
+        if(pathname == '/newProject' ){
+            Router.push('/staff')
+        }
+
         console.log("All the data in the staff component is: ", allTaskArray)
 
         const db = firebase.firestore();
