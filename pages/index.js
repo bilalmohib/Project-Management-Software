@@ -32,8 +32,7 @@ class Home extends React.Component {
   }
 
   componentDidMount = () => {
-   
-    
+
     // firebase.firestore().collection('things')
     //   .get()
     //   .then(snapshot => {
@@ -90,7 +89,7 @@ class Home extends React.Component {
           user_data: userdata
         })
         this.props.set_data(userdata);
-      
+
         console.log("Simple User===>", user);
       }
       else {
@@ -142,10 +141,10 @@ class Home extends React.Component {
   render() {
     if (this.state.isSignedIn == true) {
       this.props.set_data(this.state.user_data);
-      const {pathname} = Router
-      if(pathname == '/' ){
-        Router.push('/NewProject')
-     }
+      const { pathname } = Router
+      if (pathname == '/') {
+        Router.push('/newProject')
+      }
     }
     return (
       <div>
@@ -185,10 +184,24 @@ class Home extends React.Component {
                         </div>
                         <div className="row">
                           <div className="col-md-12">
-                            <StyledFirebaseAuth
-                              uiConfig={this.uiConfig}
-                              firebaseAuth={firebase.auth()}
-                            />
+                            {(this.state.isSignedIn) ? (
+                              <>
+                                <div className="text-center">
+                                  <div id="loader"></div>
+                                </div>
+                                <br />
+                                <div class="animate-bottom text-center">
+                                  <h2>You are already signed In</h2>
+                                  <p>Please wait you will be re directed to the projects soon......</p>
+                                </div>
+                              </>
+                            ) : (
+                              <StyledFirebaseAuth
+                                uiConfig={this.uiConfig}
+                                firebaseAuth={firebase.auth()}
+                              />
+                            )}
+
                           </div>
                         </div> <br />
                         <p className="text-inverse text-center">Dont have an account? <a href="<?= base_url() ?>auth/login" data-abc="true">Contact Here</a></p>
@@ -206,7 +219,7 @@ class Home extends React.Component {
   }
 }
 //const mapStateToProps = (state) => ({
-  // projects_data: state.app.GET_PROJECTS_DATA
+// projects_data: state.app.GET_PROJECTS_DATA
 //})
 const mapDispatchToProp = (dispatch) => ({
   set_data: (data) => dispatch(set_data(data))
