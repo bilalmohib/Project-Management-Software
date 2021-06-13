@@ -1,7 +1,7 @@
 import { useState, useEffect } from "react";
 import { connect } from "react-redux";
 import firebase from '../firebase/index';
-import 'firebase/firestore'
+import 'firebase/firestore';
 
 import xml2js from "xml2js"
 
@@ -594,7 +594,4 @@ const Staff = (props) => {
 const mapStateToProps = (state) => ({
     user_data: state.auth.USER
 })
-// const mapDispatchToProp = (dispatch) => ({
-//     set_data: (data) => dispatch(set_data(data))
-//   })
 export default connect(mapStateToProps, null)(Staff);
