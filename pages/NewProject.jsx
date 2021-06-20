@@ -37,38 +37,37 @@ const NewProject = (props) => {
 
     useEffect(() => {
 
-        const {pathname} = Router
-        if(pathname == '/newProject' ){
-            Router.push('/staff')
-        }
+        console.log("All the data in the staff component is: ", projectPlan)
 
-        console.log("All the data in the staff component is: ", allTaskArray)
+        //console.log("All the user data of current signed user: ", props.user_data)
 
-        const db = firebase.firestore();
+        ///////////////////////////////////This code is for RETRIVING DATABASE data//////////////////////////
+        // const db = firebase.firestore();
 
-        db.collection('Data/abc/123')
-            .get()
-            .then(snapshot => {
-                let data = [];
-                snapshot.forEach(element => {
-                    data.push(Object.assign({
-                        id: element.id,
-                        name: element.name,
-                        uid: '123',
-                        createAt: element.createAt,
-                        UniqueID: element.id
-                    }, element.data()))
-                })
-                console.log("data=> ", data)
-                if (firestoreData.length != data.length) {
-                    setFirestoreData(data);
-                    console.log("Updated")
-                }
+        // db.collection('Data/abc/123')
+        //     .get()
+        //     .then(snapshot => {
+        //         let data = [];
+        //         snapshot.forEach(element => {
+        //             data.push(Object.assign({
+        //                 id: element.id,
+        //                 name: element.name,
+        //                 uid: '123',
+        //                 createAt: element.createAt,
+        //                 UniqueID: element.id
+        //             }, element.data()))
+        //         })
+        //         console.log("data=> ", data)
+        //         if (firestoreData.length != data.length) {
+        //             setFirestoreData(data);
+        //             console.log("Updated")
+        //         }
 
 
-            }).catch(err => {
-                console.log(err)
-            })
+        //     }).catch(err => {
+        //         console.log(err)
+        //     })
+        ///////////////////////////////////This code is for RETRIVING DATABASE data//////////////////////////
     })
 
     const addtasks = () => {
@@ -80,6 +79,11 @@ const NewProject = (props) => {
         // let year = dateObj.getUTCFullYear();
 
         // let newdate = year + "/" + month + "/" + day;
+
+
+
+
+
 
         let taskobj = {
             taskName: task,
@@ -132,46 +136,68 @@ const NewProject = (props) => {
         //For getting the exact time
         const { serverTimestamp } = firebase.firestore.FieldValue;
 
-        let thingsRef = db.collection(`Data/abc/123`);
+        let thingsRef = db.collection(`Data/Projects/${props.user_data.uid}`);
 
         // const ref = db.collection(`Data`).doc();
         // const id = ref.id;
 
 
+        
+        // const [stage, setStage] = useState(1);
+
+        // const [projectPlan, setProjectPlan] = useState("");
+        // const [task, setTask] = useState("");
+        // const [teamMate, setTeamMate] = useState("");
+        // //Drop Down Selected content
+        // const [assignee, setAssignee] = useState("");
+        // const [taskSection, setTaskSection] = useState("");
+        // //Drop Down Selected content
+        // const [taskDue, setTaskDue] = useState(currentDate);
+        // const [taskPriority, setTaskPriority] = useState("");
+    
+        // const [stageName, setStageName] = useState("");
+    
+        // const [allStageArray, setAllStageArray] = useState([]);
+    
+        // const [allTaskArray, setAllTaskArray] = useState([]);
+        // const [teamMatesArray, setTeamMatesArray] = useState([]);
+
+
         thingsRef.add({
-            uid: '123',
-            name: "Muhammad Bilal",
+            uid: props.user_data.uid,
+            ProjectName: projectPlan,
+
             createAt: serverTimestamp(),
             // UniqueID: id
         }).then(() => {
             console.log("Data sent");
         })
 
-        db.collection('Data/abc/123')
-            .get()
-            .then(snapshot => {
-                let data = [];
-                snapshot.forEach(element => {
-                    data.push(Object.assign({
-                        id: element.id,
-                        name: element.name,
-                        uid: '123',
-                        createAt: element.createAt,
-                        UniqueID: element.id
-                    }, element.data()))
-                })
-                console.log("data=> ", data)
-                // if (firestoreData.length == data.length) {
-                setFirestoreData(data);
-                // console.log(true);
-                // }
-                // else {
-                //     console.log(false);
-                // }
+        // db.collection('Data/abc/123')
+        //     .get()
+        //     .then(snapshot => {
+        //         let data = [];
+        //         snapshot.forEach(element => {
+        //             data.push(Object.assign({
+        //                 id: element.id,
+        //                 name: element.name,
+        //                 uid: '123',
+        //                 createAt: element.createAt,
+        //                 UniqueID: element.id
+        //             }, element.data()))
+        //         })
+        //         console.log("data=> ", data)
+        //         // if (firestoreData.length == data.length) {
+        //         setFirestoreData(data);
+        //         // console.log(true);
+        //         // }
+        //         // else {
+        //         //     console.log(false);
+        //         // }
 
-            }).catch(err => {
-                console.log(err)
-            })
+        //     }).catch(err => {
+        //         console.log(err)
+        //     })
 
     }
 
@@ -365,7 +391,7 @@ const NewProject = (props) => {
                                             <span className="input-group-addon glyphicon glyphicon-search" id="sizing-addon2"></span>
                                             <select style={{ fontSize: "15px", width: "200px" }} value={taskSection}
                                                 onChange={(e) => setTaskSection(e.target.value)} className="form-control">
-                                                {["--default--",...allStageArray].map((v, i) => {
+                                                {["--default--", ...allStageArray].map((v, i) => {
                                                     return <option value={v} key={i}>
                                                         {v}
                                                     </option>
@@ -388,7 +414,7 @@ const NewProject = (props) => {
 
                                         <br />
                                         <hr />
-                                        <button className="btn btn-secondary btn-continue" onClick={() => setStage(stage + 1)}>Take me to my project</button>
+                                        <button className="btn btn-secondary btn-continue" onClick={addData}>Take me to my project</button>
                                         {/* <ol>
                                 {firestoreData.map((v, i) => {
                                     return <li key={i}>
