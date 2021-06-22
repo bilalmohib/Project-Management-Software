@@ -155,7 +155,7 @@ const NewProject = (props) => {
             alert("Your Project is initialized Successfully.Redirecting you to your projects page.")
         })
 
-        // db.collection('Data/abc/123')
+        // db.collection('Data/abc/123'
         //     .get()
         //     .then(snapshot => {
         //         let data = [];
@@ -396,11 +396,7 @@ const NewProject = (props) => {
 
                                         <br />
                                         <hr />
-                                        {/* ProjectName: projectPlan,
-            ProjectMembers:teamMatesArray,
-            ProjectStages:allStageArray,
-            ProjectTasks:allTaskArray,
-            createAt: serverTimestamp(), */}
+                            
                                         {(projectPlan == "" || teamMatesArray.length == 0 || allStageArray.length == 0 || allTaskArray.length == 0) ? (
                                             <>
                                                 <span className="text-danger">Please enter atleast One Stage and One task to continue <span className="text-danger">*</span> to continue</span><br />
