@@ -25,14 +25,17 @@ const NewProject = (props) => {
     const [allStageArray, setAllStageArray] = useState([]);
     const [allTaskArray, setAllTaskArray] = useState([]);
     const [teamMatesArray, setTeamMatesArray] = useState([]);
+    const [status,setStatus] = useState(false);
 
     useEffect(() => {
-//        console.log("All the data in the staff component is: ", projectPlan)
-
         firebase.auth().onAuthStateChanged(user => {
-            setState(true)
-            // console.log("user", user)
-           
+            if (user) {
+                setStatus(true);
+                // loadData();
+            }
+            else {
+                setStatus(false)
+            }
           })
       
 
@@ -149,6 +152,7 @@ const NewProject = (props) => {
             // UniqueID: id
         }).then(() => {
             console.log("Data sent");
+            alert("Your Project is initialized Successfully.Redirecting you to your projects page.")
         })
 
         // db.collection('Data/abc/123')
@@ -397,7 +401,7 @@ const NewProject = (props) => {
             ProjectStages:allStageArray,
             ProjectTasks:allTaskArray,
             createAt: serverTimestamp(), */}
-                                        {(projectPlan = "", teamMatesArray.length == 0, allStageArray.length == 0, allTaskArray.length == 0) ? (
+                                        {(projectPlan == "" || teamMatesArray.length == 0 || allStageArray.length == 0 || allTaskArray.length == 0) ? (
                                             <>
                                                 <span className="text-danger">Please enter atleast One Stage and One task to continue <span className="text-danger">*</span> to continue</span><br />
                                                 <button className="btn btn-secondary btn-continue" disabled={true} onClick={addData}>Take me to my project</button>
