@@ -4,19 +4,14 @@ import { connect } from "react-redux";
 import firebase from '../firebase/index';
 import Router from 'next/router'
 import 'firebase/firestore';
-
-
+import 'firebase/auth';
 import Navbar from "../Components/Navbar";
-
 import DatePicker from 'react-date-picker/dist/entry.nostyle';
-
-
 const currentDate = new Date();
+
 const NewProject = (props) => {
     const [firestoreData, setFirestoreData] = useState([]);
-
     const [stage, setStage] = useState(1);
-
     const [projectPlan, setProjectPlan] = useState("");
     const [task, setTask] = useState("");
     const [teamMate, setTeamMate] = useState("");
@@ -26,18 +21,20 @@ const NewProject = (props) => {
     //Drop Down Selected content
     const [taskDue, setTaskDue] = useState(currentDate);
     const [taskPriority, setTaskPriority] = useState("");
-
     const [stageName, setStageName] = useState("");
-
     const [allStageArray, setAllStageArray] = useState([]);
-
     const [allTaskArray, setAllTaskArray] = useState([]);
     const [teamMatesArray, setTeamMatesArray] = useState([]);
 
-
     useEffect(() => {
+//        console.log("All the data in the staff component is: ", projectPlan)
 
-        console.log("All the data in the staff component is: ", projectPlan)
+        firebase.auth().onAuthStateChanged(user => {
+            setState(true)
+            // console.log("user", user)
+           
+          })
+      
 
         //console.log("All the user data of current signed user: ", props.user_data)
 
@@ -142,31 +139,12 @@ const NewProject = (props) => {
         // const id = ref.id;
 
 
-        
-        // const [stage, setStage] = useState(1);
-
-        // const [projectPlan, setProjectPlan] = useState("");
-        // const [task, setTask] = useState("");
-        // const [teamMate, setTeamMate] = useState("");
-        // //Drop Down Selected content
-        // const [assignee, setAssignee] = useState("");
-        // const [taskSection, setTaskSection] = useState("");
-        // //Drop Down Selected content
-        // const [taskDue, setTaskDue] = useState(currentDate);
-        // const [taskPriority, setTaskPriority] = useState("");
-    
-        // const [stageName, setStageName] = useState("");
-    
-        // const [allStageArray, setAllStageArray] = useState([]);
-    
-        // const [allTaskArray, setAllTaskArray] = useState([]);
-        // const [teamMatesArray, setTeamMatesArray] = useState([]);
-
-
         thingsRef.add({
             uid: props.user_data.uid,
             ProjectName: projectPlan,
-
+            ProjectMembers: teamMatesArray,
+            ProjectStages: allStageArray,
+            ProjectTasks: allTaskArray,
             createAt: serverTimestamp(),
             // UniqueID: id
         }).then(() => {
@@ -414,7 +392,20 @@ const NewProject = (props) => {
 
                                         <br />
                                         <hr />
-                                        <button className="btn btn-secondary btn-continue" onClick={addData}>Take me to my project</button>
+                                        {/* ProjectName: projectPlan,
+            ProjectMembers:teamMatesArray,
+            ProjectStages:allStageArray,
+            ProjectTasks:allTaskArray,
+            createAt: serverTimestamp(), */}
+                                        {(projectPlan = "", teamMatesArray.length == 0, allStageArray.length == 0, allTaskArray.length == 0) ? (
+                                            <>
+                                                <span className="text-danger">Please enter atleast One Stage and One task to continue <span className="text-danger">*</span> to continue</span><br />
+                                                <button className="btn btn-secondary btn-continue" disabled={true} onClick={addData}>Take me to my project</button>
+                                            </>
+                                        ) : (
+                                            <button className="btn btn-secondary btn-continue" onClick={addData}>Take me to my project</button>
+                                        )}
+
                                         {/* <ol>
                                 {firestoreData.map((v, i) => {
                                     return <li key={i}>
