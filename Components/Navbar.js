@@ -2,7 +2,26 @@ import { useState, useEffect } from "react";
 import Link from "next/link"
 import { connect } from "react-redux";
 import firebase from '../firebase/index';
+import "firebase/auth";
 const Navbar = (props) => {
+    const [signedInUserData,setSignedInUserData] = useState({});
+    const [status, setStatus] = useState(false);
+
+    useEffect(()=>{
+        firebase.auth().onAuthStateChanged(user => {
+            if (user) {
+                setStatus(true);
+                setSignedInUserData(user);
+                // console.log("...........",user.uid)
+                // loadData();
+            }
+            else {
+                setStatus(false)
+                setSignedInUserData(null);
+            }
+        })
+    })
+
     return (
         <>
             {/* Navbar */}
@@ -28,11 +47,11 @@ const Navbar = (props) => {
                             </li>
                         </ul>
                         {/* Left links */}
-                        {(props.user_data.isSignedIn) ? (
+                        {(status) ? (
                             <div>
                                 <div className="dropdown">
                                     <a className="dropdown-toggle" href="#" role="button" id="dropdownMenuLink" data-mdb-toggle="dropdown" aria-expanded="false">
-                                        <img src={props.user_data.photo} className="NavbarUserImage" alt="User Image" title={props.user_data.name} />
+                                        <img src={signedInUserData.photoURL} className="NavbarUserImage" alt="User Image" title={signedInUserData.name} />
                                     </a>
                                     <ul className="dropdown-menu" aria-labelledby="dropdownMenuLink">
                                         <li><a className="dropdown-item" href="#">Log Out</a></li>

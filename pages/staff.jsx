@@ -2,7 +2,7 @@ import { useState, useEffect } from "react";
 import { connect } from "react-redux";
 import firebase from '../firebase/index';
 import 'firebase/firestore';
-
+import 'firebase/auth';
 import Navbar from "../Components/Navbar";
 
 import DatePicker from 'react-date-picker/dist/entry.nostyle';
@@ -12,7 +12,24 @@ const currentDate = new Date();
 const Staff = (props) => {
     const [firestoreData, setFirestoreData] = useState([]);
 
+    const [status, setStatus] = useState(false);
+    const [signedInUserData,setSignedInUserData] = useState({});
+
     useEffect(() => {
+
+        firebase.auth().onAuthStateChanged(user => {
+            if (user) {
+                setStatus(true);
+                setSignedInUserData(user);
+                // console.log("...........",user.uid)
+                // loadData();
+            }
+            else {
+                setStatus(false)
+                setSignedInUserData(null);
+            }
+        })
+
         console.log("All the data in the staff component is: ", firestoreData);
 
         const db = firebase.firestore();
@@ -49,11 +66,10 @@ const Staff = (props) => {
         //For getting the exact time
         const { serverTimestamp } = firebase.firestore.FieldValue;
 
-        let thingsRef = db.collection(`Data/abc/123`);
+        let thingsRef = db.collection(`Data/Projects/${signedInUserData.uid}`);
 
         // const ref = db.collection(`Data`).doc();
         // const id = ref.id;
-
 
         thingsRef.add({
             uid: '123',
@@ -106,7 +122,9 @@ const Staff = (props) => {
             <br />
 
             <div className="container">
-             <h1>asdlkfj loremfldksajf lk;dsjfl;ksadjfkl;dsjaflk;jsdaflk;jaskl;dfjsa;klfjs;kldjfkl;sdajfkl;sajdfklsd;af</h1>
+             <h1>{signedInUserData.email}</h1>
+             <h1>{signedInUserData.photoURL}</h1>
+             <h1>{signedInUserData.name}</h1>
             </div>
 
         </>

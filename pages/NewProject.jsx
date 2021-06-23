@@ -25,19 +25,23 @@ const NewProject = (props) => {
     const [allStageArray, setAllStageArray] = useState([]);
     const [allTaskArray, setAllTaskArray] = useState([]);
     const [teamMatesArray, setTeamMatesArray] = useState([]);
-    const [status,setStatus] = useState(false);
+    const [status, setStatus] = useState(false);
+    const [signedInUserData,setSignedInUserData] = useState({});
 
     useEffect(() => {
         firebase.auth().onAuthStateChanged(user => {
             if (user) {
                 setStatus(true);
+                setSignedInUserData(user);
+                console.log("The signed in user data is as follows==>",user)
                 // loadData();
             }
             else {
                 setStatus(false)
+                setSignedInUserData(null);
             }
-          })
-      
+        })
+
 
         //console.log("All the user data of current signed user: ", props.user_data)
 
@@ -79,11 +83,6 @@ const NewProject = (props) => {
         // let year = dateObj.getUTCFullYear();
 
         // let newdate = year + "/" + month + "/" + day;
-
-
-
-
-
 
         let taskobj = {
             taskName: task,
@@ -131,29 +130,45 @@ const NewProject = (props) => {
     }
 
     const addData = () => {
-        const db = firebase.firestore();
-
-        //For getting the exact time
-        const { serverTimestamp } = firebase.firestore.FieldValue;
-
-        let thingsRef = db.collection(`Data/Projects/${props.user_data.uid}`);
+        if (status == false) {
+            const { pathname } = Router
+            if (pathname == '/newProject') {
+                alert("Not Signed In Redirecting to Login Page")
+                Router.push('/');
+            }
+        }
+        else {
+            console.log("Right.Correct")
+        }
 
         // const ref = db.collection(`Data`).doc();
         // const id = ref.id;
 
+        if (status) {
+            const db = firebase.firestore();
+            //For getting the exact time
+            const { serverTimestamp } = firebase.firestore.FieldValue;
 
-        thingsRef.add({
-            uid: props.user_data.uid,
-            ProjectName: projectPlan,
-            ProjectMembers: teamMatesArray,
-            ProjectStages: allStageArray,
-            ProjectTasks: allTaskArray,
-            createAt: serverTimestamp(),
-            // UniqueID: id
-        }).then(() => {
-            console.log("Data sent");
-            alert("Your Project is initialized Successfully.Redirecting you to your projects page.")
-        })
+            let thingsRef = db.collection(`Data/Projects/${signedInUserData.uid}`);
+
+            thingsRef.add({
+                uid: signedInUserData.uid,
+                ProjectName: projectPlan,
+                ProjectMembers: teamMatesArray,
+                ProjectStages: allStageArray,
+                ProjectTasks: allTaskArray,
+                createAt: serverTimestamp(),
+                // UniqueID: id
+            }).then(() => {
+                console.log("Data sent");
+                alert("Your Project is initialized Successfully.Redirecting you to your projects page.")
+            })
+            alert(true)
+        }
+        else
+        {
+            alert("Please sign in to save project to cloud.")
+        }
 
         // db.collection('Data/abc/123'
         //     .get()
@@ -396,7 +411,7 @@ const NewProject = (props) => {
 
                                         <br />
                                         <hr />
-                            
+
                                         {(projectPlan == "" || teamMatesArray.length == 0 || allStageArray.length == 0 || allTaskArray.length == 0) ? (
                                             <>
                                                 <span className="text-danger">Please enter atleast One Stage and One task to continue <span className="text-danger">*</span> to continue</span><br />
