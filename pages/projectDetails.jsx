@@ -3,6 +3,7 @@ import { connect } from "react-redux";
 import firebase from '../firebase/index';
 import 'firebase/firestore';
 import 'firebase/auth';
+import Link from 'next/link';
 import Router from 'next/router'
 import Navbar from "../Components/Navbar";
 import DatePicker from 'react-date-picker/dist/entry.nostyle';
@@ -76,15 +77,19 @@ const ProjectDetails = (props) => {
             <br />
             {(status) ? (
                 <div className="container">
-                    {(loading) ? (
-                        <>
-                            {(firestoreData.length == 0) ? (
-                                <div>
-                                    <h1 className="mt-3 text-info text-center">Please Create any project first to see its details</h1>
-                                    <p className="btn btn-link border"><Link href="/new">Create New Project</Link></p>
-                                </div>
-                            ) : (
-                                <div>
+
+
+                    {(firestoreData.length == 0) ? (
+                        <div>
+                            <br /><br />
+                            <h1 className="mt-3 text-info text-center">Please Create any project first to see its details</h1>
+                            <br /><br />
+                            <p className="btn btn-link btn-block border"><Link href="/new">Create New Project</Link></p>
+                        </div>
+                    ) : (
+                        <div>
+                            {(loading) ? (
+                                <>
                                     <div>
                                         <h1 className="text-center">{firestoreData[0].ProjectName}</h1>
                                         <p className="text-center text-info">All the project details can be customized and updated according to your choices.</p>
@@ -155,21 +160,21 @@ const ProjectDetails = (props) => {
                                             </>
                                         </table>
                                     </div>
-                                </div>
+                                </>
+                            ) : (
+                                <>
+                                    <div className="text-center">
+                                        <div id="loader"></div>
+                                    </div>
+                                    <br />
+                                    <div className="animate-bottom text-center">
+                                        <h2>Loading Your Projects ...</h2>
+                                    </div>
+                                </>
                             )}
-                        </>
-                    ) : (
-                        <>
-                            <div className="text-center">
-                                <div id="loader"></div>
-                            </div>
-                            <br />
-                            <div className="animate-bottom text-center">
-                                <h2>Loading Your Projects ...</h2>
-                            </div>
-                        </>
-                    )}
 
+                        </div>
+                    )}
                 </div>
             ) : (
                 <>
