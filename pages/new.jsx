@@ -131,7 +131,7 @@ const newProject = (props) => {
     const addData = () => {
         if (status == false) {
             const { pathname } = Router
-            if (pathname == '/newProject') {
+            if (pathname == '/new') {
                 alert("Not Signed In Redirecting to Login Page")
                 Router.push('/');
             }
@@ -163,7 +163,7 @@ const newProject = (props) => {
             }).then(() => {
                 console.log("Data sent");
                 const { pathname } = Router
-                if (pathname == '/newProject') {
+                if (pathname == '/new') {
                     alert("Your Project is initialized Successfully.Redirecting you to your projects page.")
                     Router.push('/staff');
                 }
