@@ -39,6 +39,7 @@ const newProject = (props) => {
             else {
                 setStatus(false)
                 setSignedInUserData(null);
+                Router.push('/')
             }
         })
 
