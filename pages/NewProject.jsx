@@ -26,14 +26,14 @@ const NewProject = (props) => {
     const [allTaskArray, setAllTaskArray] = useState([]);
     const [teamMatesArray, setTeamMatesArray] = useState([]);
     const [status, setStatus] = useState(false);
-    const [signedInUserData,setSignedInUserData] = useState({});
+    const [signedInUserData, setSignedInUserData] = useState({});
 
     useEffect(() => {
         firebase.auth().onAuthStateChanged(user => {
             if (user) {
                 setStatus(true);
                 setSignedInUserData(user);
-                console.log("The signed in user data is as follows==>",user)
+                console.log("The signed in user data is as follows==>", user)
                 // loadData();
             }
             else {
@@ -161,12 +161,15 @@ const NewProject = (props) => {
                 // UniqueID: id
             }).then(() => {
                 console.log("Data sent");
-                alert("Your Project is initialized Successfully.Redirecting you to your projects page.")
+                const { pathname } = Router
+                if (pathname == '/newProject') {
+                    alert("Your Project is initialized Successfully.Redirecting you to your projects page.")
+                    Router.push('/staff');
+                }
             })
-            alert(true)
+            // alert(true)
         }
-        else
-        {
+        else {
             alert("Please sign in to save project to cloud.")
         }
 
