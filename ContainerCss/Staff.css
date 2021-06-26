@@ -13,3 +13,34 @@
 {
     border-radius: 20px !important;
 }
+.blockProject
+{
+    width: 300px !important;
+    margin-left: 1%;
+    height: 430px;
+    display: inline-block;    
+    margin-top: 1%;
+    align-items: left;
+}
+.card
+{
+    height: 430px !important;
+    text-align: left;
+}
+.containerProjectsList
+{
+    margin-left: auto;
+    margin-right: auto;
+    text-align: center;
+}
+.img-card
+{
+    height: 200px !important;
+}
+.card-title
+{
+    height: 80px;
+    /* border: 1px solid black; */
+    font-family: cursive;
+    font-size: 30px;
+}

@@ -3,14 +3,16 @@ import { connect } from "react-redux";
 import firebase from '../firebase/index';
 import 'firebase/firestore';
 import 'firebase/auth';
+import Link from "next/link"
 import Navbar from "../Components/Navbar";
 import DatePicker from 'react-date-picker/dist/entry.nostyle';
+// const Logo = require("../resources/staffLogo.png");
 
 const currentDate = new Date();
 const Staff = (props) => {
     const [firestoreData, setFirestoreData] = useState([]);
     const [status, setStatus] = useState(false);
-    const [loading,setLoading] = useState(false);
+    const [loading, setLoading] = useState(false);
     const [signedInUserData, setSignedInUserData] = useState({});
 
     useEffect(() => {
@@ -69,10 +71,36 @@ const Staff = (props) => {
             <br />
 
             {(status) ? (
-                <div className="container">
+                <div>
                     {(loading) ? (
                         <>
-                            <h1>All your projects are here</h1>
+                            <div className="container">
+                                <h1 className="text-center">All your projects are here.</h1>
+                                <p className="text-center text-info">Click on a project to start working over it.</p>
+                            </div>
+                            <div className="containerProjectsList">
+                                {
+                                    firestoreData.map((v, i) => {
+                                        return <div className="blockProject" key={i}>
+                                            <div className="card">
+                                                <div className="bg-image hover-overlay ripple" data-mdb-ripple-color="light">
+                                                    <img src="/resources/staffLogo.png" className="img-fluid img-card" />
+                                                    <a href="#!">
+                                                        <div className="mask" style={{ backgroundColor: 'rgba(251, 251, 251, 0.15)' }} />
+                                                    </a>
+                                                </div>
+                                                <div className="card-body">
+                                                    <h5 className="card-title">{v.ProjectName}</h5>
+                                                    <p className="card-text">
+                                                        Created At 20/10/2010
+                                                    </p>
+                                                    <p className="btn btn-link border"><Link href="/projectDetails">Go to Project</Link></p>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    })
+                                }
+                            </div>
                         </>
                     ) : (
                         <>

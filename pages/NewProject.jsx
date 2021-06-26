@@ -93,7 +93,6 @@ const NewProject = (props) => {
         }
         // tasksArray.push(taskobj);
         setAllTaskArray([...allTaskArray, taskobj])
-
         setTask("");
     }
 
@@ -148,6 +147,8 @@ const NewProject = (props) => {
             const db = firebase.firestore();
             //For getting the exact time
             const { serverTimestamp } = firebase.firestore.FieldValue;
+
+            
 
             let thingsRef = db.collection(`Data/Projects/${signedInUserData.uid}`);
 
