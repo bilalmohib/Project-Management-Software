@@ -9,7 +9,7 @@ import Navbar from "../Components/Navbar";
 import DatePicker from 'react-date-picker/dist/entry.nostyle';
 const currentDate = new Date();
 
-const NewProject = (props) => {
+const newProject = (props) => {
     const [firestoreData, setFirestoreData] = useState([]);
     const [stage, setStage] = useState(1);
     const [projectPlan, setProjectPlan] = useState("");
@@ -627,4 +627,4 @@ const mapStateToProps = (state) => ({
 // const mapDispatchToProp = (dispatch) => ({
 //     set_data: (data) => dispatch(set_data(data))
 //   })
-export default connect(mapStateToProps, null)(NewProject);
+export default connect(mapStateToProps, null)(newProject);
