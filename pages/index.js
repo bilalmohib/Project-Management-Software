@@ -190,7 +190,7 @@ class Home extends React.Component {
                                   <div id="loader"></div>
                                 </div>
                                 <br />
-                                <div class="animate-bottom text-center">
+                                <div className="animate-bottom text-center">
                                   <h2>You are already signed In</h2>
                                   <p>Please wait you will be re directed to the projects soon......</p>
                                 </div>

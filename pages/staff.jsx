@@ -4,16 +4,14 @@ import firebase from '../firebase/index';
 import 'firebase/firestore';
 import 'firebase/auth';
 import Navbar from "../Components/Navbar";
-
 import DatePicker from 'react-date-picker/dist/entry.nostyle';
-
 
 const currentDate = new Date();
 const Staff = (props) => {
     const [firestoreData, setFirestoreData] = useState([]);
-
     const [status, setStatus] = useState(false);
-    const [signedInUserData,setSignedInUserData] = useState({});
+    const [loading,setLoading] = useState(false);
+    const [signedInUserData, setSignedInUserData] = useState({});
 
     useEffect(() => {
 
@@ -31,82 +29,31 @@ const Staff = (props) => {
         })
 
         console.log("All the data in the staff component is: ", firestoreData);
-
         const db = firebase.firestore();
-
-        db.collection('Data/abc/123')
+        db.collection(`Data/Projects/${signedInUserData.uid}`)
             .get()
             .then(snapshot => {
                 let data = [];
                 snapshot.forEach(element => {
                     data.push(Object.assign({
                         id: element.id,
-                        name: element.name,
-                        uid: '123',
-                        createAt: element.createAt,
-                        UniqueID: element.id
+                        "ProjectName": element.ProjectName,
+                        "ProjectMembers": element.ProjectMembers,
+                        "ProjectStages": element.ProjectStages,
+                        "ProjectTasks": element.ProjectTasks,
+                        "createAt": element.createAt,
                     }, element.data()))
                 })
                 console.log("data=> ", data)
                 if (firestoreData.length != data.length) {
                     setFirestoreData(data);
+                    setLoading(true);
                     console.log("Updated")
                 }
-
-
             }).catch(err => {
                 console.log(err)
             })
     })
-
-    
-    const addData = () => {
-        const db = firebase.firestore();
-
-        //For getting the exact time
-        const { serverTimestamp } = firebase.firestore.FieldValue;
-
-        let thingsRef = db.collection(`Data/Projects/${signedInUserData.uid}`);
-
-        // const ref = db.collection(`Data`).doc();
-        // const id = ref.id;
-
-        thingsRef.add({
-            uid: '123',
-            name: "Muhammad Bilal",
-            createAt: serverTimestamp(),
-            // UniqueID: id
-        }).then(() => {
-            console.log("Data sent");
-        })
-
-        db.collection('Data/abc/123')
-            .get()
-            .then(snapshot => {
-                let data = [];
-                snapshot.forEach(element => {
-                    data.push(Object.assign({
-                        id: element.id,
-                        name: element.name,
-                        uid: '123',
-                        createAt: element.createAt,
-                        UniqueID: element.id
-                    }, element.data()))
-                })
-                console.log("data=> ", data)
-                // if (firestoreData.length == data.length) {
-                setFirestoreData(data);
-                // console.log(true);
-                // }
-                // else {
-                //     console.log(false);
-                // }
-
-            }).catch(err => {
-                console.log(err)
-            })
-
-    }
 
     return (
         <>
@@ -121,11 +68,39 @@ const Staff = (props) => {
             <br />
             <br />
 
-            <div className="container">
-             <h1>{signedInUserData.email}</h1>
-             <h1>{signedInUserData.photoURL}</h1>
-             <h1>{signedInUserData.name}</h1>
-            </div>
+            {(status) ? (
+                <div className="container">
+                    {(loading) ? (
+                        <>
+                            <h1>All your projects are here</h1>
+                        </>
+                    ) : (
+                        <>
+                            <div className="text-center">
+                                <div id="loader"></div>
+                            </div>
+                            <br />
+                            <div className="animate-bottom text-center">
+                                <h2>Loading Your Projects ...</h2>
+                            </div>
+                        </>
+                    )}
+
+                </div>
+            ) : (
+                <>
+                    <div className="text-center">
+                        <div id="loader"></div>
+                    </div>
+                    <br />
+                    <div className="animate-bottom text-center">
+                        <h2>Please wait signing In ...</h2>
+                    </div>
+                </>
+            )
+            }
+
+
 
         </>
     )
