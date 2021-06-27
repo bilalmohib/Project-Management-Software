@@ -506,7 +506,6 @@ const newProject = (props) => {
                                                 </tr>
                                             })
                                         )}
-                                        )
                                     </tbody>
                                 })}
                                 {/* This matters */}

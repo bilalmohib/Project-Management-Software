@@ -91,74 +91,76 @@ const ProjectDetails = (props) => {
                             {(loading) ? (
                                 <>
                                     <div>
-                                        <h1 className="text-center">{firestoreData[props.currentKey].ProjectName}</h1>
+                                        <h1 className="text-center"><span className="text-danger"><b>Project Name:-</b></span> {firestoreData[props.currentKey].ProjectName}</h1>
                                         <p className="text-center text-info">All the project details can be customized and updated according to your choices.</p>
                                     </div>
                                     <div title={`This is a sample preview of your project dear ${signedInUserData.name}`}>
-                                        <table className="table table-bordered">
-                                            <thead>
-                                                <tr>
-                                                    <th colSpan={5}><h2><i className="fas fa-list-alt fa-lg mr-3" style={{ color: "#48dafd" }}></i>&nbsp;&nbsp; {firestoreData[0].ProjectName}</h2></th>
-                                                </tr>
-                                                <tr>
-                                                    <th scope="col">Task name</th>
-                                                    <th scope="col">Assignee</th>
-                                                    <th scope="col">Due date</th>
-                                                    <th scope="col">Priority</th>
-                                                    <th scope="col">Status</th>
-                                                </tr>
-                                            </thead>
-                                            <>
-                                                {/* This matters */}
-                                                {firestoreData[props.currentKey].ProjectStages.map((s, i) => {
-                                                    return <tbody key={i}>
-                                                        <tr>
-                                                            <th scope="row" colSpan={5}><h5><i className="fas fa-chevron-down mr-3"></i>&nbsp; {s}</h5></th>
-                                                        </tr>
-                                                        {(firestoreData[props.currentKey].ProjectTasks.length == 0) ? (
+                                        <div className="table-responsive">
+                                            <table className="table table-bordered table-hover">
+                                                <thead>
+                                                    <tr>
+                                                        <th colSpan={5}><h2><i className="fas fa-list-alt fa-lg mr-3" style={{ color: "#48dafd" }}></i>&nbsp;&nbsp; {firestoreData[0].ProjectName}</h2></th>
+                                                    </tr>
+                                                    <tr>
+                                                        <th scope="col">Task name</th>
+                                                        <th scope="col">Assignee</th>
+                                                        <th scope="col">Due date</th>
+                                                        <th scope="col">Priority</th>
+                                                        <th scope="col">Status</th>
+                                                    </tr>
+                                                </thead>
+                                                <>
+                                                    {/* This matters */}
+                                                    {firestoreData[props.currentKey].ProjectStages.map((s, i) => {
+                                                        return <tbody key={i}>
                                                             <tr>
-                                                                <th scope="row"><i className="far fa-check-circle fa-lg"></i>&nbsp;&nbsp;</th>
-                                                                <td>&nbsp;&nbsp;</td>
-                                                                <td>&nbsp;&nbsp;</td>
-                                                                <td>&nbsp;&nbsp;</td>
-                                                                <td>&nbsp;&nbsp;</td>
+                                                                <th scope="row" colSpan={5}><h5><i className="fas fa-chevron-down mr-3"></i>&nbsp; {s}</h5></th>
                                                             </tr>
-                                                        ) : (
-                                                            firestoreData[props.currentKey].ProjectTasks.map((v, i) => {
-                                                                return <tr key={i}>
-                                                                    {(v.taskSection == s) ? (
-                                                                        <>
-                                                                            <th scope="row"><i className="far fa-check-circle fa-lg"></i>&nbsp;&nbsp;{v.taskName}</th>
-                                                                            {(v.taskAssignee == "") ? (
-                                                                                <td><i className="fas fa-user-circle fa-2x text-primary"></i></td>
-                                                                            ) : (
-                                                                                <td>{v.taskAssignee}</td>
-                                                                            )}
-
-                                                                            <td>{v.taskDue}</td>
-                                                                            {(v.taskPriority == "High") ? (
-                                                                                <td><button type="button" className="btn btn-danger btn-rounded">{v.taskPriority}</button></td>
-                                                                            ) : (v.taskPriority == "Medium") ? (
-                                                                                <td><button type="button" className="btn btn-warning btn-rounded">{v.taskPriority}</button></td>
-                                                                            ) : (v.taskPriority == "Low") ? (
-                                                                                <td><button type="button" className="btn btn-info btn-rounded">{v.taskPriority}</button></td>
-                                                                            ) : (
-                                                                                <td></td>
-                                                                            )}
-                                                                            <td><h5>{v.taskSection}</h5></td>
-                                                                        </>
-                                                                    ) : (
-                                                                        <></>
-                                                                    )}
+                                                            {(firestoreData[props.currentKey].ProjectTasks.length == 0) ? (
+                                                                <tr>
+                                                                    <th scope="row"><i className="far fa-check-circle fa-lg"></i>&nbsp;&nbsp;</th>
+                                                                    <td>&nbsp;&nbsp;</td>
+                                                                    <td>&nbsp;&nbsp;</td>
+                                                                    <td>&nbsp;&nbsp;</td>
+                                                                    <td>&nbsp;&nbsp;</td>
                                                                 </tr>
-                                                            })
-                                                        )}
-                                                        )
-                                                    </tbody>
-                                                })}
-                                                {/* This matters */}
-                                            </>
-                                        </table>
+                                                            ) : (
+                                                                firestoreData[props.currentKey].ProjectTasks.map((v, i) => {
+                                                                    return <tr key={i}>
+                                                                        {(v.taskSection == s) ? (
+                                                                            <>
+                                                                                <th scope="row"><i className="far fa-check-circle fa-lg"></i>&nbsp;&nbsp;{v.taskName}</th>
+                                                                                {(v.taskAssignee == "") ? (
+                                                                                    <td><i className="fas fa-user-circle fa-2x text-primary"></i></td>
+                                                                                ) : (
+                                                                                    <td>{v.taskAssignee}</td>
+                                                                                )}
+
+                                                                                <td>{v.taskDue}</td>
+                                                                                {(v.taskPriority == "High") ? (
+                                                                                    <td><button type="button" className="btn btn-danger btn-rounded">{v.taskPriority}</button></td>
+                                                                                ) : (v.taskPriority == "Medium") ? (
+                                                                                    <td><button type="button" className="btn btn-warning btn-rounded">{v.taskPriority}</button></td>
+                                                                                ) : (v.taskPriority == "Low") ? (
+                                                                                    <td><button type="button" className="btn btn-info btn-rounded">{v.taskPriority}</button></td>
+                                                                                ) : (
+                                                                                    <td></td>
+                                                                                )}
+                                                                                <td><h5>{v.taskSection}</h5></td>
+                                                                            </>
+                                                                        ) : (
+                                                                            <></>
+                                                                        )}
+                                                                    </tr>
+                                                                })
+                                                            )}
+
+                                                        </tbody>
+                                                    })}
+                                                    {/* This matters */}
+                                                </>
+                                            </table>
+                                        </div>
                                     </div>
                                 </>
                             ) : (
@@ -195,6 +197,6 @@ const ProjectDetails = (props) => {
     )
 }
 const mapStateToProps = (state) => ({
-    currentKey:state.app.SET_KEY
+    currentKey: state.app.SET_KEY
 })
 export default connect(mapStateToProps, null)(ProjectDetails);
