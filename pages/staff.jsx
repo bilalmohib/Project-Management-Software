@@ -1,5 +1,6 @@
 import { useState, useEffect } from "react";
 import { connect } from "react-redux";
+import {setCurrentKey} from "../store/action/index";
 import firebase from '../firebase/index';
 import 'firebase/firestore';
 import 'firebase/auth';
@@ -95,7 +96,7 @@ const Staff = (props) => {
                                                     <p className="card-text">
                                                         Created At 20/10/2010
                                                     </p>
-                                                    <p className="btn btn-link border"><Link href="/projectDetails">Go to Project</Link></p>
+                                                    <a onClick={()=>props.setCurrentKey(i)} className="btn btn-link border"><Link href="/projectDetails">Go to Project</Link></a>
                                                 </div>
                                             </div>
                                         </div>
@@ -137,4 +138,7 @@ const Staff = (props) => {
 const mapStateToProps = (state) => ({
     user_data: state.auth.USER
 })
-export default connect(mapStateToProps, null)(Staff);
+const mapDispatchToProp = (dispatch) => ({
+    setCurrentKey: (data) => dispatch(setCurrentKey(data))
+  })
+export default connect(mapStateToProps, mapDispatchToProp)(Staff);

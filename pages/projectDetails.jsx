@@ -32,7 +32,7 @@ const ProjectDetails = (props) => {
             }
         })
 
-        console.log("All the data in the staff component is: ", firestoreData);
+        console.log("All the data in the staff component is: ", props.currentKey);
 
         if (status) {
             const db = firebase.firestore();
@@ -91,7 +91,7 @@ const ProjectDetails = (props) => {
                             {(loading) ? (
                                 <>
                                     <div>
-                                        <h1 className="text-center">{firestoreData[0].ProjectName}</h1>
+                                        <h1 className="text-center">{firestoreData[props.currentKey].ProjectName}</h1>
                                         <p className="text-center text-info">All the project details can be customized and updated according to your choices.</p>
                                     </div>
                                     <div title={`This is a sample preview of your project dear ${signedInUserData.name}`}>
@@ -110,12 +110,12 @@ const ProjectDetails = (props) => {
                                             </thead>
                                             <>
                                                 {/* This matters */}
-                                                {firestoreData[0].ProjectStages.map((s, i) => {
+                                                {firestoreData[props.currentKey].ProjectStages.map((s, i) => {
                                                     return <tbody key={i}>
                                                         <tr>
                                                             <th scope="row" colSpan={5}><h5><i className="fas fa-chevron-down mr-3"></i>&nbsp; {s}</h5></th>
                                                         </tr>
-                                                        {(firestoreData[0].ProjectTasks.length == 0) ? (
+                                                        {(firestoreData[props.currentKey].ProjectTasks.length == 0) ? (
                                                             <tr>
                                                                 <th scope="row"><i className="far fa-check-circle fa-lg"></i>&nbsp;&nbsp;</th>
                                                                 <td>&nbsp;&nbsp;</td>
@@ -124,7 +124,7 @@ const ProjectDetails = (props) => {
                                                                 <td>&nbsp;&nbsp;</td>
                                                             </tr>
                                                         ) : (
-                                                            firestoreData[0].ProjectTasks.map((v, i) => {
+                                                            firestoreData[props.currentKey].ProjectTasks.map((v, i) => {
                                                                 return <tr key={i}>
                                                                     {(v.taskSection == s) ? (
                                                                         <>
@@ -195,6 +195,6 @@ const ProjectDetails = (props) => {
     )
 }
 const mapStateToProps = (state) => ({
-    user_data: state.auth.USER
+    currentKey:state.app.SET_KEY
 })
 export default connect(mapStateToProps, null)(ProjectDetails);

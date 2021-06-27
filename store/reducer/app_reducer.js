@@ -1,7 +1,7 @@
 const INITIAL_STATE = {
   SELL: {},
   GET_PROJECTS_DATA: [],
-  SET_KEY:"",
+  SET_KEY:0,
   SETCONDITION:true
 
 }
