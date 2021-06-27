@@ -1,0 +1,14 @@
+body
+{
+    color: aliceblue;
+    background-color: rgb(44, 44, 44);
+}
+.table
+{
+    color: aliceblue;
+}
+.table:hover
+{
+    color: rgb(23, 169, 189) !important;
+    transition: 0.5s linear;
+}

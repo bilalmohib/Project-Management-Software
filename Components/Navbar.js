@@ -25,7 +25,7 @@ const Navbar = (props) => {
     return (
         <>
             {/* Navbar */}
-            <nav className="navbar navbar-expand-lg navbar-light bg-light">
+            <nav className="navbar navbar-expand-lg navbar-dark bg-dark">
                 {/* Container wrapper */}
                 <div className="container">
                     {/* Navbar brand */}

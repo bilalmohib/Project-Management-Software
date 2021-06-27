@@ -96,7 +96,7 @@ const ProjectDetails = (props) => {
                                     </div>
                                     <div title={`This is a sample preview of your project dear ${signedInUserData.name}`}>
                                         <div className="table-responsive">
-                                            <table className="table table-bordered table-hover">
+                                            <table className="table table-bordered">
                                                 <thead>
                                                     <tr>
                                                         <th colSpan={5}><h2><i className="fas fa-list-alt fa-lg mr-3" style={{ color: "#48dafd" }}></i>&nbsp;&nbsp; {firestoreData[0].ProjectName}</h2></th>
