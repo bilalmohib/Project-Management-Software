@@ -149,7 +149,7 @@ const newProject = (props) => {
             //For getting the exact time
             const { serverTimestamp } = firebase.firestore.FieldValue;
 
-            
+
 
             let thingsRef = db.collection(`Data/Projects/${signedInUserData.uid}`);
 
@@ -439,85 +439,86 @@ const newProject = (props) => {
                                 )}
 
                     <div className="col-md-8" title={`This is a sample preview of your project dear ${props.user_data.name}`}>
-                        <table className="table table-bordered">
-                            <thead>
+                        <div className="table-responsive">
+                            <table className="table table-bordered table-hover">
+                                <thead>
 
-                                <tr>
-                                    <th colSpan={5}><h2><i className="fas fa-list-alt fa-lg mr-3" style={{ color: "#48dafd" }}></i>&nbsp;&nbsp; {projectPlan}</h2></th>
-                                </tr>
-                                <tr>
-                                    <th scope="col">Task name</th>
-                                    <th scope="col">Assignee</th>
-                                    <th scope="col">Due date</th>
-                                    <th scope="col">Priority</th>
-                                    <th scope="col">Status</th>
-                                </tr>
-                            </thead>
-                            <>
-                                {/* {(stage)?(
+                                    <tr>
+                                        <th colSpan={5}><h2><i className="fas fa-list-alt fa-lg mr-3" style={{ color: "#48dafd" }}></i>&nbsp;&nbsp; {projectPlan}</h2></th>
+                                    </tr>
+                                    <tr>
+                                        <th scope="col">Task name</th>
+                                        <th scope="col">Assignee</th>
+                                        <th scope="col">Due date</th>
+                                        <th scope="col">Priority</th>
+                                        <th scope="col">Status</th>
+                                    </tr>
+                                </thead>
+                                <>
+                                    {/* {(stage)?(
 
                                 ):(
 
                                 )} */}
 
 
-                                {/* This matters */}
-                                {allStageArray.map((s, i) => {
-                                    return <tbody key={i}>
-                                        <tr>
-                                            <th scope="row" colSpan={5}><h5><i className="fas fa-chevron-down mr-3"></i>&nbsp; {s}</h5></th>
-                                        </tr>
-                                        {(allTaskArray.length == 0) ? (
+                                    {/* This matters */}
+                                    {allStageArray.map((s, i) => {
+                                        return <tbody key={i}>
                                             <tr>
-                                                <th scope="row"><i className="far fa-check-circle fa-lg"></i>&nbsp;&nbsp;</th>
-                                                <td>&nbsp;&nbsp;</td>
-                                                <td>&nbsp;&nbsp;</td>
-                                                <td>&nbsp;&nbsp;</td>
-                                                <td>&nbsp;&nbsp;</td>
+                                                <th scope="row" colSpan={5}><h5><i className="fas fa-chevron-down mr-3"></i>&nbsp; {s}</h5></th>
                                             </tr>
-                                        ) : (
-                                            allTaskArray.map((v, i) => {
-                                                return <tr key={i}>
-                                                    {(v.taskSection == s) ? (
-                                                        <>
-
-                                                            <th scope="row"><i className="far fa-check-circle fa-lg"></i>&nbsp;&nbsp;{v.taskName}</th>
-                                                            {(v.taskAssignee == "") ? (
-                                                                <td><i className="fas fa-user-circle fa-2x text-primary"></i></td>
-                                                            ) : (
-                                                                <td>{v.taskAssignee}</td>
-                                                            )}
-
-                                                            <td>{v.taskDue}</td>
-                                                            {(v.taskPriority == "High") ? (
-                                                                <td><button type="button" className="btn btn-danger btn-rounded">{v.taskPriority}</button></td>
-                                                            ) : (v.taskPriority == "Medium") ? (
-                                                                <td><button type="button" className="btn btn-warning btn-rounded">{v.taskPriority}</button></td>
-                                                            ) : (v.taskPriority == "Low") ? (
-                                                                <td><button type="button" className="btn btn-info btn-rounded">{v.taskPriority}</button></td>
-                                                            ) : (
-                                                                <td></td>
-                                                            )}
-                                                            <td><h5>{v.taskSection}</h5></td>
-                                                        </>
-                                                    ) : (
-                                                        <></>
-                                                    )}
+                                            {(allTaskArray.length == 0) ? (
+                                                <tr>
+                                                    <th scope="row"><i className="far fa-check-circle fa-lg"></i>&nbsp;&nbsp;</th>
+                                                    <td>&nbsp;&nbsp;</td>
+                                                    <td>&nbsp;&nbsp;</td>
+                                                    <td>&nbsp;&nbsp;</td>
+                                                    <td>&nbsp;&nbsp;</td>
                                                 </tr>
-                                            })
-                                        )}
-                                    </tbody>
-                                })}
-                                {/* This matters */}
+                                            ) : (
+                                                allTaskArray.map((v, i) => {
+                                                    return <tr key={i}>
+                                                        {(v.taskSection == s) ? (
+                                                            <>
+
+                                                                <th scope="row"><i className="far fa-check-circle fa-lg"></i>&nbsp;&nbsp;{v.taskName}</th>
+                                                                {(v.taskAssignee == "") ? (
+                                                                    <td><i className="fas fa-user-circle fa-2x text-primary"></i></td>
+                                                                ) : (
+                                                                    <td>{v.taskAssignee}</td>
+                                                                )}
+
+                                                                <td>{v.taskDue}</td>
+                                                                {(v.taskPriority == "High") ? (
+                                                                    <td><button type="button" className="btn btn-danger btn-rounded">{v.taskPriority}</button></td>
+                                                                ) : (v.taskPriority == "Medium") ? (
+                                                                    <td><button type="button" className="btn btn-warning btn-rounded">{v.taskPriority}</button></td>
+                                                                ) : (v.taskPriority == "Low") ? (
+                                                                    <td><button type="button" className="btn btn-info btn-rounded">{v.taskPriority}</button></td>
+                                                                ) : (
+                                                                    <td></td>
+                                                                )}
+                                                                <td><h5>{v.taskSection}</h5></td>
+                                                            </>
+                                                        ) : (
+                                                            <></>
+                                                        )}
+                                                    </tr>
+                                                })
+                                            )}
+                                        </tbody>
+                                    })}
+                                    {/* This matters */}
 
 
-                                {/* This is commented for now for map to work */}
-                                {/* <tr>
+                                    {/* This is commented for now for map to work */}
+                                    {/* <tr>
                                     <th scope="row" colSpan={5}><h5><i className="fas fa-chevron-down mr-3"></i>&nbsp; {stageName}</h5></th>
                                 </tr> */}
 
 
-                                {/* {(allTaskArray.length == 0) ? (
+                                    {/* {(allTaskArray.length == 0) ? (
                                     <>
                                         <tr>
                                             <th scope="row"><i className="far fa-check-circle fa-lg"></i>&nbsp;&nbsp;</th>
@@ -551,9 +552,9 @@ const newProject = (props) => {
                                         </tr>
                                     })
                                 )} */}
-                                {/* This is commented for now for map to work */}
+                                    {/* This is commented for now for map to work */}
 
-                                {/* <tr>
+                                    {/* <tr>
                                     <th scope="row"><i className="far fa-check-circle fa-lg"></i>&nbsp;&nbsp;Determine project goal</th>
                                     <td><i className="fas fa-user-circle fa-2x text-primary"></i></td>
                                     <td>Today-Jun 9</td>
@@ -575,8 +576,8 @@ const newProject = (props) => {
                                     <td><button type="button" className="btn btn-danger btn-rounded">On track</button></td>
                                 </tr> */}
 
-                                {/* This is commented for now */}
-                                {/* <tr>
+                                    {/* This is commented for now */}
+                                    {/* <tr>
                                     <th scope="row" colSpan={5}><h5><i className="fas fa-chevron-down mr-3"></i>&nbsp; {stageName}</h5></th>
                                 </tr>
                                 <tr>
@@ -610,9 +611,10 @@ const newProject = (props) => {
                                     <td>&nbsp;&nbsp;</td>
                                     <td>&nbsp;&nbsp;</td>
                                 </tr> */}
-                                {/* This is commented for now */}
-                            </>
-                        </table>
+                                    {/* This is commented for now */}
+                                </>
+                            </table>
+                        </div>
                     </div>
                 </div>
 
