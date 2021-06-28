@@ -63,6 +63,11 @@ const Staff = (props) => {
         }
     })
 
+    const goToDetails = (e, key) => {
+        props.setCurrentKey(key);
+        Router.push(`/${e}`);
+    }
+
     return (
         <>
             <div className="container">
@@ -78,21 +83,18 @@ const Staff = (props) => {
 
             {(status) ? (
                 <div>
-
                     {(firestoreData.length == 0) ? (
                         <div className="container">
                             <br /><br />
                             <h3 className="mt-3 text-info text-center">There is no project created.Please create a project by clicking on below button.</h3>
                             <br /><br />
-                            <div>
-                                
-                            </div>
-                            <p className="btn btn-link btn-block border"><i class="fas fa-4x fa-plus-circle"><Link href="/new"> Create New Project</Link></i></p>
+                            <p className="btn btn-link btn-block border"><i className="fas fa-4x fa-plus-circle"><Link href="/new"> Create New Project</Link></i></p>
                         </div>
                     ) : (
                         <div>
                             {(loading) ? (
                                 <>
+                                    <div title="Create New Project" className="newProjectBtn" onClick={() => Router.push('/new')}><i className="fas fa-4x fa-plus-circle"></i></div>
                                     <div className="container">
                                         <h1 className="text-center">All your projects are here.</h1>
                                         <p className="text-center text-info">Click on a project to start working over it.</p>
@@ -102,18 +104,18 @@ const Staff = (props) => {
                                             firestoreData.map((v, i) => {
                                                 return <div className="blockProject" key={i}>
                                                     <div className="card">
-                                                        <div className="bg-image hover-overlay ripple" data-mdb-ripple-color="light">
+                                                        <div onClick={() => goToDetails('projectDetails', i)} className="bg-image hover-overlay ripple" data-mdb-ripple-color="light">
                                                             <img src="/resources/staffLogo.png" className="img-fluid img-card" />
-                                                            <a href="#!">
+                                                            <a onClick={() => goToDetails('projectDetails', i)}>
                                                                 <div className="mask" style={{ backgroundColor: 'rgba(251, 251, 251, 0.15)' }} />
                                                             </a>
                                                         </div>
                                                         <div className="card-body">
                                                             <h5 className="card-title">{v.ProjectName}</h5>
                                                             <p className="card-text">
-                                                                Created At 20/10/2010
+                                                                {v.createAt}
                                                             </p>
-                                                            <a onClick={() => props.setCurrentKey(i)} className="btn btn-link border"><Link href="/projectDetails">Go to Project</Link></a>
+                                                            <a onClick={() => goToDetails('projectDetails', i)} className="btn btn-link border">Go to Project</a>
                                                         </div>
                                                     </div>
                                                 </div>

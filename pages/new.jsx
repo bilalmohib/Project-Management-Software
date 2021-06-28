@@ -159,7 +159,7 @@ const newProject = (props) => {
                 ProjectMembers: teamMatesArray,
                 ProjectStages: allStageArray,
                 ProjectTasks: allTaskArray,
-                createAt: serverTimestamp(),
+                createAt: JSON.stringify(currentDate),
                 // UniqueID: id
             }).then(() => {
                 console.log("Data sent");

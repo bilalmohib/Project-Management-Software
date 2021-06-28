@@ -90,6 +90,7 @@ const ProjectDetails = (props) => {
                         <div>
                             {(loading) ? (
                                 <>
+                                    <div title="Create New Project" className="newProjectBtn" onClick={()=>Router.push('/new')}><i className="fas fa-4x fa-plus-circle"></i></div>
                                     <div>
                                         <h1 className="text-center"><span className="text-danger"><b>Project Name:-</b></span> {firestoreData[props.currentKey].ProjectName}</h1>
                                         <p className="text-center text-info">All the project details can be customized and updated according to your choices.</p>
@@ -190,9 +191,6 @@ const ProjectDetails = (props) => {
                 </>
             )
             }
-
-
-
         </>
     )
 }
