@@ -143,7 +143,7 @@ class Home extends React.Component {
       this.props.set_data(this.state.user_data);
       const { pathname } = Router
       if (pathname == '/') {
-        Router.push('/new')
+        Router.push('/staff')
       }
     }
     return (
