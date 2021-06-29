@@ -201,9 +201,8 @@ class Home extends React.Component {
                                 firebaseAuth={firebase.auth()}
                               />
                             )}
-
                           </div>
-                        </div> <br />
+                        </div> 
                         <p className="text-inverse text-center">Dont have an account? <a href="<?= base_url() ?>auth/login" data-abc="true">Contact Here</a></p>
                       </div>
                     </div>
