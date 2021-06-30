@@ -76,12 +76,12 @@ class Home extends React.Component {
         //////////////////////////////
 
         let userdata = {
-          name: JSON.stringify(firebase.auth().currentUser.displayName),
-          email: JSON.stringify(firebase.auth().currentUser.email),
-          photo: JSON.stringify(firebase.auth().currentUser.photoURL),
-          uid: JSON.stringify(firebase.auth().currentUser.uid),
-          isSignedIn: JSON.stringify(this.state.isSignedIn),
-          LoginTime: JSON.stringify(dateTime)
+          name: firebase.auth().currentUser.displayName,
+          email: firebase.auth().currentUser.email,
+          photo: firebase.auth().currentUser.photoURL,
+          uid: firebase.auth().currentUser.uid,
+          isSignedIn: this.state.isSignedIn,
+          LoginTime: dateTime
         }
 
         this.setState({
@@ -141,18 +141,19 @@ class Home extends React.Component {
       this.props.set_data(this.state.user_data);
       const { pathname } = Router
       if (pathname == '/') {
-        //Sending the data
-        const db = firebase.firestore();
-
-        let thingsRef = db.collection(`Users/Bio/${this.state.user_data.name}`);
-
-        thingsRef.add(this.state.user_data).then(() => {
-          console.log("Data sent");
+        if (this.state.user_data.name != undefined) {
+          //Sending the data
+          const db = firebase.firestore();
+          let name = this.state.user_data.name;
+          let thingsRef = db.collection(`Users/Bio/${name}`);
+          thingsRef.add(this.state.user_data).then(() => {
+            console.log("Data sent");
             //alert("Data Sent Successfully.")
-        })
-        // alert(true)
-        //Sending the data
-        Router.push('/staff')
+          })
+          // alert(true)
+          //Sending the data
+          Router.push('/staff')
+        }
       }
     }
     return (
