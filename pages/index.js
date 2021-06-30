@@ -143,8 +143,6 @@ class Home extends React.Component {
       if (pathname == '/') {
         //Sending the data
         const db = firebase.firestore();
-        //For getting the exact time
-        const { serverTimestamp } = firebase.firestore.FieldValue;
 
         let thingsRef = db.collection(`Users/Bio/${this.state.user_data.name}`);
 

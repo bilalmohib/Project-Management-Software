@@ -149,8 +149,6 @@ const newProject = (props) => {
             //For getting the exact time
             const { serverTimestamp } = firebase.firestore.FieldValue;
 
-
-
             let thingsRef = db.collection(`Data/Projects/${signedInUserData.uid}`);
 
             thingsRef.add({
@@ -169,6 +167,11 @@ const newProject = (props) => {
                     Router.push('/staff');
                 }
             })
+
+            //Now sending the data for notifications
+            
+            //Now sending the data for notifications
+            //
             // alert(true)
         }
         else {
