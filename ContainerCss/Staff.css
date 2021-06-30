@@ -26,6 +26,8 @@
 {
     height: 430px !important;
     text-align: left;
+    box-shadow: 1px 0.5px 1px 1px rgb(194, 194, 194);
+    border: 0.5px solid rgb(226, 226, 226);
 }
 .containerProjectsList
 {
@@ -49,4 +51,5 @@
     position: fixed;
     bottom: 2%;
     left: 2%;
+    z-index: 1000;
 }

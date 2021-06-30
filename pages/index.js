@@ -10,7 +10,6 @@ import StyledFirebaseAuth from 'react-firebaseui/StyledFirebaseAuth';
 import { connect } from "react-redux"
 import { set_data } from '../store/action/index';
 
-
 class Home extends React.Component {
   constructor(props) {
     super(props)
@@ -195,7 +194,7 @@ class Home extends React.Component {
                             )}
                           </div>
                         </div> 
-                        <p className="text-inverse text-center">Dont have an account? <a href="<?= base_url() ?>auth/login" data-abc="true">Contact Here</a></p>
+                        <p className="text-inverse text-center">Dont have an account? <i className="text-primary">Click on above sign in button to create account.</i> </p>
                       </div>
                     </div>
                   </form>
