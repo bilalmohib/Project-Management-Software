@@ -6,17 +6,16 @@ import Image from 'next/image'
 import firebase from '../firebase/index';
 import firebaseAuth from 'firebase/auth'
 import StyledFirebaseAuth from 'react-firebaseui/StyledFirebaseAuth';
-
 import { connect } from "react-redux"
 import { set_data } from '../store/action/index';
-
+import "firebase/firestore"
 class Home extends React.Component {
   constructor(props) {
     super(props)
     this.state = {
       show: false,
       isSignedIn: false,
-      user_data: []
+      user_data: {}
     }
   }
 
@@ -77,18 +76,18 @@ class Home extends React.Component {
         //////////////////////////////
 
         let userdata = {
-          name: firebase.auth().currentUser.displayName,
-          email: firebase.auth().currentUser.email,
-          photo: firebase.auth().currentUser.photoURL,
-          uid: firebase.auth().currentUser.uid,
-          isSignedIn: this.state.isSignedIn,
-          LoginTime: dateTime
+          name: JSON.stringify(firebase.auth().currentUser.displayName),
+          email: JSON.stringify(firebase.auth().currentUser.email),
+          photo: JSON.stringify(firebase.auth().currentUser.photoURL),
+          uid: JSON.stringify(firebase.auth().currentUser.uid),
+          isSignedIn: JSON.stringify(this.state.isSignedIn),
+          LoginTime: JSON.stringify(dateTime)
         }
+
         this.setState({
           user_data: userdata
         })
         this.props.set_data(userdata);
-
         console.log("Simple User===>", user);
       }
       else {
@@ -142,6 +141,19 @@ class Home extends React.Component {
       this.props.set_data(this.state.user_data);
       const { pathname } = Router
       if (pathname == '/') {
+        //Sending the data
+        const db = firebase.firestore();
+        //For getting the exact time
+        const { serverTimestamp } = firebase.firestore.FieldValue;
+
+        let thingsRef = db.collection(`Users/Bio/${this.state.user_data.name}`);
+
+        thingsRef.add(this.state.user_data).then(() => {
+          console.log("Data sent");
+            //alert("Data Sent Successfully.")
+        })
+        // alert(true)
+        //Sending the data
         Router.push('/staff')
       }
     }
@@ -193,7 +205,7 @@ class Home extends React.Component {
                               />
                             )}
                           </div>
-                        </div> 
+                        </div>
                         <p className="text-inverse text-center">Dont have an account? <i className="text-primary">Click on above sign in button to create account.</i> </p>
                       </div>
                     </div>
@@ -208,9 +220,9 @@ class Home extends React.Component {
     )
   }
 }
-//const mapStateToProps = (state) => ({
-// projects_data: state.app.GET_PROJECTS_DATA
-//})
+const mapStateToProps = (state) => ({
+  userInfo: state.auth.USER
+})
 const mapDispatchToProp = (dispatch) => ({
   set_data: (data) => dispatch(set_data(data))
 })

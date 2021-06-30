@@ -27,7 +27,7 @@ const Admin = (props) => {
 
     const reset_password = () => {
         var auth = firebase.auth();
-        var emailAddress = "info@alumtec.ca";
+        var emailAddress = "bilalmohib7896@gmail.com";
         auth.sendPasswordResetEmail(emailAddress).then(function () {
             // alert(`A password reset email has been sent to ${emailAddress}.`)
         }).catch(function (error) {
