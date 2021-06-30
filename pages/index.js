@@ -168,14 +168,6 @@ class Home extends React.Component {
                             <h3 className="text-center heading">STAFF MANAGER</h3>
                           </div>
                         </div>
-                        {/* <div className="form-group form-primary"> <input type="text" className="form-control" name="first_name" defaultValue placeholder="Display name" id="first_name" /> </div>
-                      <div className="form-group form-primary"> <input type="text" className="form-control" name="email" defaultValue placeholder="Email" id="email" /> </div>
-                      <div className="form-group form-primary"> <input type="password" className="form-control" name="password" placeholder="Password" defaultValue id="password" /> </div>
-                      <div className="form-group form-primary"> <input type="password" className="form-control" name="password_confirm" placeholder="Repeat password" defaultValue id="password_confirm" /> </div> */}
-                        {/* <div className="row">
-                        <div className="col-md-12"> <input type="submit" className="btn btn-primary btn-md btn-block waves-effect text-center m-b-20" name="submit" defaultValue="Signup Now" />  <button type="button" class="btn btn-primary btn-md btn-block waves-effect text-center m-b-20"><i class="fa fa-lock"></i> Signup Now </button> 
-                        </div>
-                      </div> */}
                         <div className="or-container">
                           <div className="line-separator" />
                           {/* <div className="or-label">or</div> */}
