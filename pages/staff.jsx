@@ -37,7 +37,7 @@ const Staff = (props) => {
 
         if (status) {
             const db = firebase.firestore();
-            db.collection(`Data/Projects/${signedInUserData.uid}`)
+            db.collection(`Data/Projects/${signedInUserData.email}`)
                 .get()
                 .then(snapshot => {
                     let data = [];
@@ -99,28 +99,75 @@ const Staff = (props) => {
                                         <h1 className="text-center">All your projects are here.</h1>
                                         <p className="text-center text-info">Click on a project to start working over it.</p>
                                     </div>
-                                    <div className="containerProjectsList">
-                                        {
-                                            firestoreData.map((v, i) => {
-                                                return <div className="blockProject" key={i}>
-                                                    <div className="card">
-                                                        <div onClick={() => goToDetails('projectDetails', i)} className="bg-image hover-overlay ripple" data-mdb-ripple-color="light">
-                                                            <img src="/resources/staffLogo.png" className="img-fluid img-card" />
-                                                            <a onClick={() => goToDetails('projectDetails', i)}>
-                                                                <div className="mask" style={{ backgroundColor: 'rgba(251, 251, 251, 0.15)' }} />
-                                                            </a>
-                                                        </div>
-                                                        <div className="card-body">
-                                                            <h5 className="card-title">{v.ProjectName}</h5>
-                                                            <p className="card-text">
-                                                                {v.createAt}
-                                                            </p>
-                                                            <a onClick={() => goToDetails('projectDetails', i)} className="btn btn-link border">Go to Project</a>
-                                                        </div>
-                                                    </div>
+
+                                    <div className="container">
+                                        {/* Tabs navs */}
+                                        <ul className="nav nav-tabs nav-justified mb-3" id="ex1" role="tablist">
+                                            <li className="nav-item" role="presentation">
+                                                <a className="nav-link active" id="ex3-tab-1" data-mdb-toggle="tab" href="#ex3-tabs-1" role="tab" aria-controls="ex3-tabs-1" aria-selected="true"><i className="fas mr-2 fa-1x fa-id-card"></i> Card View</a>
+                                            </li>
+                                            <li className="nav-item" role="presentation">
+                                                <a className="nav-link" id="ex3-tab-2" data-mdb-toggle="tab" href="#ex3-tabs-2" role="tab" aria-controls="ex3-tabs-2" aria-selected="false"><i className="fas fa-1x mr-2 fa-th-list"></i> List View</a>
+                                            </li>
+                                        </ul>
+                                        {/* Tabs navs */}
+                                        {/* Tabs content */}
+                                        <div className="tab-content" id="ex2-content">
+                                            <div className="tab-pane fade show active" id="ex3-tabs-1" role="tabpanel" aria-labelledby="ex3-tab-1">
+                                                <div className="containerProjectsList">
+                                                    {
+                                                        firestoreData.map((v, i) => {
+                                                            return <div className="blockProject" key={i}>
+                                                                <div className="card">
+                                                                    <div onClick={() => goToDetails('projectDetails', i)} className="bg-image hover-overlay ripple" data-mdb-ripple-color="light">
+                                                                        <img src="/resources/staffLogo.png" className="img-fluid img-card" />
+                                                                        <a onClick={() => goToDetails('projectDetails', i)}>
+                                                                            <div className="mask" style={{ backgroundColor: 'rgba(251, 251, 251, 0.15)' }} />
+                                                                        </a>
+                                                                    </div>
+                                                                    <div className="card-body">
+                                                                        <h5 className="card-title">{v.ProjectName}</h5>
+                                                                        <p className="card-text">
+                                                                            {v.createAt}
+                                                                        </p>
+                                                                        <a onClick={() => goToDetails('projectDetails', i)} className="btn btn-link border">Go to Project</a>
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                        })
+                                                    }
                                                 </div>
-                                            })
-                                        }
+                                            </div>
+                                            <div className="tab-pane fade" id="ex3-tabs-2" role="tabpanel" aria-labelledby="ex3-tab-2">
+                                                <div className="containerProjectsList">
+                                                    {
+                                                        firestoreData.map((v, i) => {
+                                                            return <div className="listProject" key={i}>
+                                                                <div className="card2">
+                                                                    <div onClick={() => goToDetails('projectDetails', i)} className="bg-image hover-overlay ripple" data-mdb-ripple-color="light">
+                                                                        <a onClick={() => goToDetails('projectDetails', i)}>
+                                                                            <div className="mask" style={{ backgroundColor: 'rgba(251, 251, 251, 0.15)' }} />
+                                                                        </a>
+                                                                    </div>
+                                                                    <div className="card-body">
+                                                                        <h3 className="card-title2">{v.ProjectName}</h3>
+                                                                        <h5><b>Current Stage:</b> <span className="text-warning">"{v.CurrentStage}"</span></h5>
+                                                                        <h5><b>Current Stage Active Task:</b> <span className="text-info">"{v.CurrentStageCurrentTask}"</span> </h5>
+                                                                        <h5><b>Project Started At:</b> <span className="text-success">{v.ProjectStartingDate}</span></h5>
+                                                                        <h5><b>Project Ending At(Estimated) :</b> <span className="text-danger">{v.ProjectEndingDate}</span></h5>
+                                                                        <p className="card-text">
+                                                                            {v.createAt}
+                                                                        </p>
+                                                                        <a onClick={() => goToDetails('projectDetails', i)} className="btn btn-link border">Go to Project</a>
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                        })
+                                                    }
+                                                </div>
+                                            </div>
+                                        </div>
+                                        {/* Tabs content */}
                                     </div>
                                 </>
                             ) : (

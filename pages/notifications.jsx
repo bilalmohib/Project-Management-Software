@@ -37,7 +37,7 @@ const Notification = (props) => {
 
         if (status) {
             const db = firebase.firestore();
-            db.collection(`Data/Projects/${signedInUserData.uid}`)
+            db.collection(`Data/Projects/${signedInUserData.email}`)
                 .get()
                 .then(snapshot => {
                     let data = [];
