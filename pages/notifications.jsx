@@ -7,7 +7,6 @@ import Router from 'next/router'
 import 'firebase/auth';
 import Link from "next/link"
 import Navbar from "../Components/Navbar";
-import DatePicker from 'react-date-picker/dist/entry.nostyle';
 // const Logo = require("../resources/staffLogo.png");
 
 const currentDate = new Date();
@@ -37,7 +36,7 @@ const Notification = (props) => {
 
         if (status) {
             const db = firebase.firestore();
-            db.collection(`Data/Projects/${signedInUserData.email}`)
+            db.collection(`Data/Notifications/${signedInUserData.email}`)
                 .get()
                 .then(snapshot => {
                     let data = [];
@@ -46,8 +45,6 @@ const Notification = (props) => {
                             id: element.id,
                             "ProjectName": element.ProjectName,
                             "ProjectMembers": element.ProjectMembers,
-                            "ProjectStages": element.ProjectStages,
-                            "ProjectTasks": element.ProjectTasks,
                             "createAt": element.createAt,
                         }, element.data()))
                     })
@@ -62,6 +59,32 @@ const Notification = (props) => {
                 })
         }
     })
+
+    const UpdateTheData = () => {
+        //console.clear()
+        const db = firebase.firestore();
+        db.collection(`Data/Notifications/${signedInUserData.email}`)
+            .get()
+            .then(snapshot => {
+                let data = [];
+                snapshot.forEach(element => {
+                    data.push(Object.assign({
+                        id: element.id,
+                        "ProjectName": element.ProjectName,
+                        "ProjectMembers": element.ProjectMembers,
+                        "createAt": element.createAt,
+                    }, element.data()))
+                })
+            
+                // if (firestoreData.length != data.length) {
+                    setFirestoreData(data);
+                    setLoading(true);
+                    console.log("Updated")
+                // }
+            }).catch(err => {
+                console.log(err)
+            })
+    }
 
     const goToDetails = (e, key) => {
         props.setCurrentKey(key);
@@ -85,7 +108,7 @@ const Notification = (props) => {
             </div>
 
             {(status) ? (
-                <div>
+                <div onMouseOver={()=>UpdateTheData()}>
                     {(firestoreData.length == 0) ? (
                         <div className="container">
                             <br /><br />
@@ -100,7 +123,7 @@ const Notification = (props) => {
                                             firestoreData.map((v, i) => {
                                                 return <div key={i}>
                                                     <div className="alert alert-primary" role="alert">
-                                                        This is a primary alert—check it out!
+                                                        Only <span className="text-danger">'{v.DaysLeft}'</span> days are left in the ending of Project named <span className="text-primary">'{v.ProjectName}'</span> !
                                                     </div>
                                                 </div>
                                             })

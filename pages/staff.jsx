@@ -15,6 +15,7 @@ const Staff = (props) => {
     const [firestoreData, setFirestoreData] = useState([]);
     const [status, setStatus] = useState(false);
     const [loading, setLoading] = useState(false);
+    const [initial,setInitial] = useState(true);
     const [signedInUserData, setSignedInUserData] = useState({});
 
     useEffect(() => {
@@ -36,6 +37,7 @@ const Staff = (props) => {
         console.log("All the data in the staff component is: ", firestoreData);
 
         if (status) {
+            //SendNotifications();
             const db = firebase.firestore();
             db.collection(`Data/Projects/${signedInUserData.email}`)
                 .get()
@@ -52,9 +54,57 @@ const Staff = (props) => {
                         }, element.data()))
                     })
                     console.log("data=> ", data)
+                    ///////////////////////////////Here is the code for sending notifications
+                    ///////////////////////////////Here is the code for sending notifications
+                    if (initial == true) {
+                        let dateArray = [];
+                        for (let i = 0; i < data.length; i++) {
+                            var date = new Date(data[i].ProjectEndingDate);
+                            var currentDate = new Date();
+                            var difference_in_seconds = date - currentDate;
+                            var Difference_In_Days = difference_in_seconds / (1000 * 3600 * 24);
+                            if (Difference_In_Days < 25) {
+                                console.log(`The Project is less than ${Difference_In_Days} days and its name is ${data[i].ProjectName}`)
+                                ////////////////////////////
+                                let today = new Date();
+                                let date = today.getFullYear() + '-' + (today.getMonth() + 1) + '-' + today.getDate();
+                                let time = today.getHours() + ":" + today.getMinutes() + ":" + today.getSeconds();
+                                let dateTime = date + ' ' + time;
+                                dateTime = dateTime.toString();
+                                ////////////////////////////
+                                let thingsRef = db.collection(`Data/Notifications/${signedInUserData.email}`);
+                                thingsRef.add({
+                                    uid: signedInUserData.uid,
+                                    userEmail: signedInUserData.email,
+                                    ProjectName: data[i].ProjectName,
+                                    ProjectMembers: data[i].ProjectMembers,
+                                    ProjectStartingDate: data[i].ProjectStartingDate,
+                                    ProjectEndingDate: data[i].ProjectEndingDate,
+                                    CurrentStage: data[i].CurrentStage,
+                                    CurrentStageCurrentTask: data[i].CurrentStageCurrentTask,
+                                    createAt: data[i].createAt,
+                                    notificationSentAt: dateTime,
+                                    DaysLeft: Difference_In_Days
+                                }).then(() => {
+                                    //alert(`The '${Difference_In_Days}' Days are remaining of Project whose name is '${data[i].ProjectName}'`);
+                                })
+                            }
+                            let temp = {
+                                "ProjectEndingDate": Difference_In_Days + " days",
+                                "ProjectName": data[i].ProjectName
+                            }
+                            //console.log(data[i].ProjectEndingDate+'\n');
+                            dateArray.push(temp);
+                        }
+                    }
+
+                    ///////////////////////////////Here is the code for sending notifications
+                    ///////////////////////////////Here is the code for sending notifications
+
                     if (firestoreData.length != data.length) {
                         setFirestoreData(data);
                         setLoading(true);
+                        setInitial(false)
                         console.log("Updated")
                     }
                 }).catch(err => {
@@ -63,13 +113,164 @@ const Staff = (props) => {
         }
     })
 
+    const SendNotifications = () => {
+        const db = firebase.firestore();
+        db.collection(`Data/Projects/${signedInUserData.email}`)
+            .get()
+            .then(snapshot => {
+                let data = [];
+                snapshot.forEach(element => {
+                    data.push(Object.assign({
+                        id: element.id,
+                        "ProjectName": element.ProjectName,
+                        "ProjectMembers": element.ProjectMembers,
+                        "ProjectStages": element.ProjectStages,
+                        "ProjectTasks": element.ProjectTasks,
+                        "createAt": element.createAt,
+                    }, element.data()))
+                })
+                console.log("data=> ", data)
+                ///////////////////////////////Here is the code for sending notifications
+                let dateArray = [];
+                for (let i = 0; i < data.length; i++) {
+                    var date = new Date(data[i].ProjectEndingDate);
+                    var currentDate = new Date();
+                    var difference_in_seconds = date - currentDate;
+                    var Difference_In_Days = difference_in_seconds / (1000 * 3600 * 24);
+                    if (Difference_In_Days < 25) {
+                        console.log(`The Project is less than ${Difference_In_Days} days and its name is ${data[i].ProjectName}`)
+                        ////////////////////////////
+                        let today = new Date();
+                        let date = today.getFullYear() + '-' + (today.getMonth() + 1) + '-' + today.getDate();
+                        let time = today.getHours() + ":" + today.getMinutes() + ":" + today.getSeconds();
+                        let dateTime = date + ' ' + time;
+                        dateTime = dateTime.toString();
+                        ////////////////////////////
+                        let thingsRef = db.collection(`Data/Notifications/${signedInUserData.email}`);
+                        thingsRef.add({
+                            uid: signedInUserData.uid,
+                            userEmail: signedInUserData.email,
+                            ProjectName: data[i].ProjectName,
+                            ProjectMembers: data[i].ProjectMembers,
+                            ProjectStartingDate: data[i].ProjectStartingDate,
+                            ProjectEndingDate: data[i].ProjectEndingDate,
+                            CurrentStage: data[i].CurrentStage,
+                            CurrentStageCurrentTask: data[i].CurrentStageCurrentTask,
+                            createAt: data[i].createAt,
+                            notificationSentAt: dateTime,
+                            DaysLeft: Difference_In_Days
+                        }).then(() => {
+                            alert(`The '${Difference_In_Days}' Days are remaining of Project whose name is '${data[i].ProjectName}'`);
+                        })
+                    }
+                    let temp = {
+                        "ProjectEndingDate": Difference_In_Days + " days",
+                        "ProjectName": data[i].ProjectName
+                    }
+                    //console.log(data[i].ProjectEndingDate+'\n');
+                    dateArray.push(temp);
+                }
+                ///////////////////////////////Here is the code for sending notifications
+
+                // if (firestoreData.length != data.length) {
+                // setFirestoreData(data);
+                // setLoading(true);
+                // console.log("Updated")
+                // }
+            }).catch(err => {
+                console.log(err)
+            })
+    }
+
+    const UpdateTheData = () => {
+        //console.clear()
+        const db = firebase.firestore();
+        db.collection(`Data/Projects/${signedInUserData.email}`)
+            .get()
+            .then(snapshot => {
+                let data = [];
+                snapshot.forEach(element => {
+                    data.push(Object.assign({
+                        id: element.id,
+                        "ProjectName": element.ProjectName,
+                        "ProjectMembers": element.ProjectMembers,
+                        "ProjectStages": element.ProjectStages,
+                        "ProjectTasks": element.ProjectTasks,
+                        "createAt": element.createAt,
+                    }, element.data()))
+                })
+                // console.log("data=> ", data[0].ProjectEndingDate)
+                //////////////Here is the code for sending notifications
+                // let dateArray = [];
+                // for(let i=0;i<data.length;i++)
+                // {
+                //     var date = new Date(data[i].ProjectEndingDate);
+                //     var currentDate = new Date();
+                //     var difference_in_seconds = date - currentDate;
+                //     var Difference_In_Days = difference_in_seconds / (1000 * 3600 * 24);
+                //     if(Difference_In_Days<25)
+                //     {
+                //         console.log(`The Project is less than ${Difference_In_Days} days and its name is ${data[i].ProjectName}`)
+
+                //         let thingsRef = db.collection(`Data/Projects/${signedInUserData.email}`);
+                //         thingsRef.add({
+                //             uid: signedInUserData.uid,
+                //             userEmail: signedInUserData.email,
+                //             ProjectName: projectPlan,
+                //             ProjectMembers: teamMatesArray,
+                //             ProjectStages: allStageArray,
+                //             ProjectTasks: allTaskArray,
+                //             ProjectStartingDate: projectStartingDate.toLocaleDateString(),
+                //             ProjectEndingDate: projectEndingDate.toLocaleDateString(),
+                //             CurrentStage: currentStage,
+                //             CurrentStageCurrentTask: currentStageCurrentTask,
+                //             createAt: JSON.stringify(currentDate),
+                //             // UniqueID: id
+                //         }).then(() => {
+                //             console.log("Data sent");
+                //             const { pathname } = Router
+                //             if (pathname == '/new') {
+                //                 alert("Your Project is initialized Successfully.Redirecting you to your projects page.")
+                //                 Router.push('/staff');
+                //             }
+                //         })
+
+                //     }
+                //     let temp = {
+                //         "ProjectEndingDate":Difference_In_Days + " days",
+                //         "ProjectName":data[i].ProjectName
+                //     }
+                //     //console.log(data[i].ProjectEndingDate+'\n');
+                //     dateArray.push(temp);
+                // }
+
+                //console.log(dateArray)
+                /////////////////Here is the code for sending notifications
+
+                if (firestoreData.length != data.length) {
+                    setFirestoreData(data);
+                    setLoading(true);
+                    
+                    console.log("Updated")
+                }
+            }).catch(err => {
+                console.log(err)
+            })
+    }
+
+    // setTimeout(()=>{
+    //    alert("Condition set to false No Notification will be sent now");
+    //    setInitial(false);
+    // },300000)
+
     const goToDetails = (e, key) => {
         props.setCurrentKey(key);
         Router.push(`/${e}`);
     }
 
+
     return (
-        <>
+        <div>
             <div className="container">
                 <div className="fixed-top">
                     <Navbar />
@@ -82,13 +283,13 @@ const Staff = (props) => {
             <br />
 
             {(status) ? (
-                <div>
+                <div onMouseOver={() => UpdateTheData()}>
                     {(firestoreData.length == 0) ? (
                         <div className="container">
                             <br /><br />
                             <h3 className="mt-3 text-info text-center">There is no project created.Please create a project by clicking on below button.</h3>
                             <br /><br />
-                            <p className="btn btn-link btn-block border"><i className="fas fa-4x fa-plus-circle"><Link href="/new"> Create New Project</Link></i></p>
+                            <p className="btn btn-link btn-block border"><i className="fas fa-2x fa-plus-circle"><Link href="/new"> Create New Project</Link></i></p>
                         </div>
                     ) : (
                         <div>
@@ -196,10 +397,7 @@ const Staff = (props) => {
                 </>
             )
             }
-
-
-
-        </>
+        </div>
     )
 }
 const mapStateToProps = (state) => ({
