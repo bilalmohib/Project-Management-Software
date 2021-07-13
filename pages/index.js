@@ -152,7 +152,7 @@ class Home extends React.Component {
           })
           // alert(true)
           //Sending the data
-          Router.push('/staff')
+          Router.push('/main')
         }
       }
     }

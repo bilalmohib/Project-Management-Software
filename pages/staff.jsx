@@ -268,7 +268,6 @@ const Staff = (props) => {
         Router.push(`/${e}`);
     }
 
-
     return (
         <div>
             <div className="container">

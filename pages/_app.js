@@ -4,6 +4,7 @@ import '../styles/globals.css'
 import "../ContainerCss/Home.css";
 import "../ContainerCss/Admin.css";
 import "../ContainerCss/Staff.css";
+import "../ContainerCss/Main.css"
 
 import "../ComponentCss/Navbar.css";
 

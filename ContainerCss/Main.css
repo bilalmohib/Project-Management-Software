@@ -1,0 +1,10 @@
+.main-buttons {
+    width: 70% !important;
+    height: 150px !important;
+    margin-bottom: 10px;
+    margin-left: 10px;
+    font-size: 25px;
+    font-family: sans-serif;
+    letter-spacing: 3px;
+    border-radius: 10px;
+}
