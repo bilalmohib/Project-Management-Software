@@ -8,19 +8,24 @@ import Link from "next/link"
 import Navbar from "../Components/Navbar";
 
 const Admin = (props) => {
-    const [email, setEmail] = useState("");
-    const [password, setPassword] = useState("");
+    // const [email, setEmail] = useState("");
+    // const [password, setPassword] = useState("");
     const [status, setStatus] = useState(null);
     const [allAlertData, setAllAlertData] = useState([]);
+    const [signedInUserData, setSignedInUserData] = useState({});
 
     useEffect(() => {
         firebase.auth().onAuthStateChanged(user => {
             if (user) {
                 setStatus(true);
-                loadData();
+                setSignedInUserData(user);
+                // console.log("...........",user.uid)
+                // loadData();
             }
             else {
                 setStatus(false)
+                setSignedInUserData(null);
+                Router.push('/')
             }
         })
     }, [])
@@ -92,46 +97,9 @@ const Admin = (props) => {
             <br />
             <br />
             <br />
-            {/* Background image */}
-            <div id="intro" className="bg-image shadow-2-strong">
-                <div className="mask d-flex align-items-center h-100" style={{ backgroundColor: 'rgba(0, 0, 0, 0.8)' }}>
-                    <div className="container">
-                        <div className="row justify-content-center">
-                            <div className="col-xl-5 col-md-8">
-                                <form action="javascript:void(0);" className="bg-white  rounded-5 shadow-5-strong p-5">
-                                    {/* Email input */}
-                                    <div className="mb-4">
-                                        <input type="email" placeholder="Email" className="form-control" />
-                                    </div>
-                                    {/* Password input */}
-                                    <div className="mb-4">
-                                        <input type="password" placeholder="Password" className="form-control" />
-                                    </div>
-                                    {/* 2 column grid layout for inline styling */}
-                                    <div className="row mb-4">
-                                        <div className="col d-flex justify-content-center">
-                                            {/* Checkbox */}
-                                            <div className="form-check">
-                                                <input className="form-check-input" type="checkbox" defaultValue defaultChecked />
-                                                <label className="form-check-label" htmlFor="form1Example3">
-                                                    Remember me
-                                                </label>
-                                            </div>
-                                        </div>
-                                        <div className="col text-center">
-                                            {/* Simple link */}
-                                            <a href="#!">Forgot password?</a>
-                                        </div>
-                                    </div>
-                                    {/* Submit button */}
-                                    <button onClick={() => alert("Hello")} className="btn btn-primary btn-block">Sign in</button>
-                                </form>
-                            </div>
-                        </div>
-                    </div>
-                </div>
+            <div className="container">
+                <h1>Admin Welcome</h1>
             </div>
-            {/* Background image */}
         </>
     )
 }
