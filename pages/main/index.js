@@ -1,7 +1,7 @@
 import React from "react";
 import { useState, useEffect } from "react";
 import { connect } from "react-redux";
-import { setCurrentKey } from "../../store/action/index";
+import { setCurrentKey } from "../../store/index";
 import firebase from '../../firebase/index';
 import 'firebase/firestore';
 import Router from 'next/router'
@@ -10,7 +10,7 @@ import Link from "next/link"
 import Navbar from "../../Components/Navbar";
 import DatePicker from 'react-date-picker/dist/entry.nostyle';
 
-const Admin = () => {
+const Main = () => {
     const [firestoreData, setFirestoreData] = useState([]);
     const [status, setStatus] = useState(false);
     const [loading, setLoading] = useState(false);
@@ -115,16 +115,20 @@ const Admin = () => {
     //For navigating to specified console
     const navigateToSpecifiedPage = (e) => {
         (e == "Finance") ? (
-            alert("Finance team welcome")
+            // alert("Finance team welcome")
+            Router.push("/department/finance")
         ) :
             (e == "Staff") ? (
-                alert("Staff team welcome")
+                // alert("Staff team welcome")
+                Router.push("/department/staff")
             ) :
                 (e == "Admin") ? (
-                    alert("Admin team welcome")
+                    //alert("Admin team welcome")
+                    Router.push("/admin")
                 ) :
                     (
-                        alert("Market team welcome")
+                        // alert("Market team welcome")
+                        Router.push("/department/market")
                     )
     }
 
@@ -141,9 +145,30 @@ const Admin = () => {
             <br />
             <br />
 
-            <h1 className="text-center text-primary">I am admin</h1>
+            <h1 className="text-center text-primary">Choose your Department</h1>
+            <br />
+            <div className="container">
+                <div className="row">
+                    <div className="col-md-6 text-center">
+                        <button className="btn-primary main-buttons" onClick={() => navigateToSpecifiedPage("Marketing")}>Marketing Management</button>
+                    </div>
+                    <div className="col-md-6 text-center">
+                        <button className="btn-warning main-buttons" onClick={() => navigateToSpecifiedPage("Finance")}>Finance Management</button>
+                    </div>
+                </div>
+                <div className="row">
+                    <div className="col-md-6 text-center">
+                        <button className="btn-info main-buttons" onClick={() => navigateToSpecifiedPage("Staff")}>Staff Management</button>
+                    </div>
+                    <div className="col-md-6 text-center">
+                        <button className="btn-success main-buttons" onClick={() => navigateToSpecifiedPage("Admin")}>Admin Management</button>
+                    </div>
+                </div>
+
+
+            </div>
         </>
     )
 }
-export default Admin;
+export default Main;
 

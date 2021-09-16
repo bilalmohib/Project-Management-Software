@@ -1,11 +1,11 @@
 import { useEffect, useState } from "react";
 import { connect } from "react-redux";
-import firebase from '../firebase/index';
+import firebase from '../../firebase/index';
 import 'firebase/firestore';
 import Router from 'next/router'
 import 'firebase/auth';
 import Link from "next/link"
-import Navbar from "../Components/Navbar";
+import Navbar from "../../Components/Navbar";
 
 const Admin = (props) => {
     // const [email, setEmail] = useState("");

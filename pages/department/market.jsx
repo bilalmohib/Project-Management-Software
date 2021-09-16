@@ -7,7 +7,7 @@ import 'firebase/auth';
 import Link from "next/link"
 import Navbar from "../../Components/Navbar";
 
-const Finance = (props) => {
+const Marketing = (props) => {
     // const [email, setEmail] = useState("");
     // const [password, setPassword] = useState("");
     const [status, setStatus] = useState(null);
@@ -98,7 +98,7 @@ const Finance = (props) => {
             <br />
             <br />
             <div className="container">
-                <h1>Finance</h1>
+                <h1>Marketing</h1>
             </div>
         </>
     )
@@ -107,4 +107,4 @@ const mapStateToProps = (state) => ({
     user_data: state.auth.USER
 })
 
-export default connect(mapStateToProps, null)(Finance);
+export default connect(mapStateToProps, null)(Marketing);
