@@ -5,8 +5,8 @@ import "../ContainerCss/Home.css";
 import "../ContainerCss/Admin.css";
 import "../ContainerCss/Staff.css";
 import "../ContainerCss/Main.css"
-
-import "../ComponentCss/Navbar.css";
+//Importing the styles for navigation bar.
+import "../Components/Navbar/Navbar.css";
 
 import "react-date-picker/dist/DatePicker.css"
 import "react-calendar/dist/Calendar.css"

@@ -2,7 +2,7 @@ import { useState, useEffect } from "react";
 import Link from "next/link"
 import Router from "next/router"
 import { connect } from "react-redux";
-import firebase from '../firebase/index';
+import firebase from '../../firebase/index';
 import "firebase/auth";
 const Navbar = (props) => {
     const [signedInUserData, setSignedInUserData] = useState({});
