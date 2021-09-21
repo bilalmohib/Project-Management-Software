@@ -2,7 +2,7 @@ import Head from "next/head"
 import '../styles/globals.css'
 
 import "../ContainerCss/Home.css";
-import "../ContainerCss/Admin.css";
+import "../ContainerCss/Admin.scss";
 import "../ContainerCss/Staff.css";
 import "../ContainerCss/Main.css"
 //Importing the styles for navigation bar.

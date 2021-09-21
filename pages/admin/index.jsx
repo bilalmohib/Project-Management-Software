@@ -375,7 +375,43 @@ const Admin = (props) => {
                                             </div>
                                             {/* First Column of list of Projects */}
 
-                                            {/* Second Column of list of Projects */}
+                                            {/* Second Column of list of Exterior and Commercial */}
+                                            <div className="col-md-3">
+                                                <h1>
+                                                    Exterior
+                                                </h1>
+                                                <hr />
+                                                <br /><br /><br /><br /><br /><br />
+                                                <hr />
+                                                <h1>
+                                                    Commercial
+                                                </h1>
+                                            </div>
+                                            {/* Second Column of list of Exterior and Commercial */}
+
+                                            {/* Third Column of General Tasks */}
+                                            <div className="col-md-3">
+                                                <h1 className='text-danger'>TASKS: </h1>
+                                                <ul className="ml__2">
+                                                    <ol>
+                                                        <h3 className="border text-warning text-weightLight">My task</h3>
+                                                    </ol>
+                                                    <ol>
+                                                        <h3 className='mt-4 border text-warning text-weightLight'>Marketing</h3>
+                                                    </ol>
+                                                    <ol>
+                                                        <h3 className="mt-4 border text-warning text-weightLight">Const Supervision</h3>
+                                                    </ol>
+                                                    <ol>
+                                                        <h3 className='mt-4 border text-warning text-weightLight'>Finance</h3>
+                                                    </ol>
+                                                    <ol>
+                                                        <h3 className='mt-4 border text-warning text-weightLight'>Given Task</h3>
+                                                    </ol>
+                                                </ul>
+                                            </div>
+                                            {/* Third Column of General Tasks */}
+
 
                                         </div>
                                     </div>
