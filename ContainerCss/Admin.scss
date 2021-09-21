@@ -7,19 +7,26 @@
     color: #fff !important;
 }
 
-.text-weightLight
-{
+.text-weightLight {
     font-weight: lighter !important;
 }
 
-.ml__2
-{
+.ml__2 {
     border: 1px solid blue;
-    margin-left: -5% !important; 
+    margin-left: -5% !important;
 }
 
-ul ol{
+// ul{
+//     list-style-type: square !important;
+// }
+
+ul {
+    ol {
+        list-style: numeric;
+        list-style-type: decimal;
+        margin-left: -20% !important;
     
+    }
 }
 
 @media (min-width: 992px) {
