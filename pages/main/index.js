@@ -164,8 +164,6 @@ const Main = () => {
                         <button className="btn-success main-buttons" onClick={() => navigateToSpecifiedPage("Admin")}>Admin Management</button>
                     </div>
                 </div>
-
-
             </div>
         </>
     )
