@@ -1,0 +1,16 @@
+.container_ca_nav{
+    border: 1px solid black !important;
+    width: fit-content;
+    display: flex;
+    margin-left: 50px;
+}
+
+.logo_ca_caption{
+    color: #0d0e10 !important;
+    padding-top: 2px;
+}
+
+.logo_ca{
+    width: 40px;
+    height: 40px;
+}
